@@ -285,11 +285,13 @@ ErrorType Game::StartOfGame()
 	pos = Vector2D(300, 300); //Set position in start function
 	rot = 1.0f;
 
-	MySoundEngine* pSE = MySoundEngine::GetInstance();
+	/*MySoundEngine* pSE = MySoundEngine::GetInstance();
 	shootSound = pSE->LoadWav(L"shoot.wav");
 
 	MySoundEngine* pSE2 = MySoundEngine::GetInstance();
-	thrustSound = pSE2->LoadWav(L"thrustloop2.wav");
+	thrustSound = pSE2->LoadWav(L"thrustloop2.wav");*/
+
+	pSpaceship->Initialise(Vector2D(4.0f, 4.0f));
 
 	gt.mark();
 	gt.mark();
@@ -322,7 +324,10 @@ ErrorType Game::Update()
 	 //Vector2D move(2.0f, 2.0f); //Move variable
 	 //pos = pos + move;//Set the position to current position + move variable
 
-	MyInputs* pInputs = MyInputs::GetInstance();
+	pSpaceship->Render();
+	pSpaceship->Update();
+	
+	/*MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
 	vel.setBearing(rot, 4.0f);
@@ -353,8 +358,8 @@ ErrorType Game::Update()
 	if (pInputs->KeyPressed(DIK_SPACE))
 	{
 		pSE->Play(shootSound);
-	}
-
+	}*/
+	
 	gt.mark();
 
 

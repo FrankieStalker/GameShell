@@ -12,6 +12,8 @@
 #include "mysoundengine.h" // Includes sound engine
 #include "gametimer.h"
 
+#include "spaceship.h"
+
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
 // Note that this makes the class windows-specific, but it already includes
@@ -41,9 +43,6 @@ private:
 
 	GameTimer gt;
 
-
-public:
-	static Game instance;			// Singleton instance
 	PictureIndex image;
 	Vector2D pos;					// Sprite position
 	float rot;						// Sprite rotation
@@ -52,6 +51,12 @@ public:
 
 	SoundIndex shootSound;			// Shoot sound
 	SoundIndex thrustSound;			// Thrust sound
+
+	Spaceship* pSpaceship = new Spaceship();
+
+public:
+	static Game instance;			// Singleton instance
+	
 
 	// Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons
 	// This is called soon after the program runs
