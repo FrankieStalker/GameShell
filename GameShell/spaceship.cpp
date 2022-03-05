@@ -7,27 +7,17 @@ Spaceship::Spaceship()
 	active = false;
 }
 
+Spaceship::~Spaceship()
+{
+
+}
+
 void Spaceship::Initialise(Vector2D initPos)
 {
 	position = initPos;
 	angle = 1.0f;
 	active = true;
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	img = pDE->LoadPicture(L"ship.bmp");
-}
-
-void Spaceship::Render()
-{
-	if (active == true)
-	{
-		//Draw image
-		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, img, 1.0f, angle);
-	}
-	else
-	{
-		active == false;
-	}
+	loadImage(L"ship.bmp");
 }
 
 void Spaceship::Update()
@@ -36,7 +26,7 @@ void Spaceship::Update()
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
-	if (pInputs->KeyPressed(DIK_W))			//Key press W -> go backwards
+	if (pInputs->KeyPressed(DIK_W))			//Key press W -> go forwards
 	{
 		acceleration = Vector2D(500, 0);
 		acceleration.setBearing(angle, accPower);

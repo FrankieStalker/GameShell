@@ -11,6 +11,8 @@
 #include <math.h>
 #include "shapes.h"
 
+#include "spaceship.h"
+#include "rock.h"
 
 Game::Game()
 {
@@ -280,10 +282,10 @@ ErrorType Game::StartOfGame()
 	// Code to set up your game *********************************************
 	// **********************************************************************
 
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	image = pDE->LoadPicture(L"ship.bmp");
-	pos = Vector2D(300, 300); //Set position in start function
-	rot = 1.0f;
+	//MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+	//image = pDE->LoadPicture(L"ship.bmp");
+	//pos = Vector2D(300, 300); //Set position in start function
+	//rot = 1.0f;
 
 	/*MySoundEngine* pSE = MySoundEngine::GetInstance();
 	shootSound = pSE->LoadWav(L"shoot.wav");
@@ -291,7 +293,18 @@ ErrorType Game::StartOfGame()
 	MySoundEngine* pSE2 = MySoundEngine::GetInstance();
 	thrustSound = pSE2->LoadWav(L"thrustloop2.wav");*/
 
-	pSpaceship->Initialise(Vector2D(4.0f, 4.0f));
+	srand(time(0)); // Set random number
+
+	pSpaceship = new Spaceship(); //Creating new spaceship from spaceship pointer
+	pSpaceship->Initialise(Vector2D(4.0f, 4.0f)); //Initilising the starting position
+	pSpaceshipGO = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
+
+	for (int i = 0; i < 10; i++)
+	{
+		pRockA[i] = new Rock(); //Creating new rock from rock pointer
+		pRockA[i]->Initialise(); //Initilising the starting position
+		pRockGO = pRockA[i]; //rock GameObject pointer is copied to rock Rock pointer
+	}
 
 	gt.mark();
 	gt.mark();
@@ -324,9 +337,16 @@ ErrorType Game::Update()
 	 //Vector2D move(2.0f, 2.0f); //Move variable
 	 //pos = pos + move;//Set the position to current position + move variable
 
-	pSpaceship->Render();
-	pSpaceship->Update();
-	
+	pSpaceshipGO->Render();
+	pSpaceshipGO->Update();
+
+	for (int i = 0; i < 10; i++)
+	{
+		pRockGO->Render();
+		pRockGO->Update();
+		pRockGO = pRockA[i];
+	}
+
 	/*MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
@@ -380,6 +400,17 @@ ErrorType Game::EndOfGame()
 	// Add code here to tidy up ********************************************
 	// *********************************************************************
 
+	if (pSpaceship) //Check to see if pSpaceship exists, delete if it is
+	{
+		delete pSpaceship;
+		pSpaceship = nullptr;
+	}
+
+	for (int i = 0; i < 10; i++) //Loop to see if pRockA exists, delete each of them
+	{
+		delete pRockA[i];
+		pRockA[i] = nullptr;
+	}
 
 
 	return SUCCESS;

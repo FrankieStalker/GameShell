@@ -1,33 +1,24 @@
 #pragma once
 
-#include "mydrawengine.h"
 #include "GameObject.h"
 
 class Spaceship : public GameObject
 {
 private:
-	Vector2D velocity;
-	Vector2D position;
-	Vector2D acceleration;
-	Vector2D friction;
-	
-	float angle;
-	bool active;
-	PictureIndex img;
+	Vector2D velocity; //Velocity of spaceship
+	Vector2D acceleration; //Acceleration of spaceship
+	Vector2D friction; //Friction of spaceship
 
-	float frameTime = 0.016;
+	float frameTime = 0.016; //Frame time for 60s
 
-	const float accPower = 250.0f;
-	const float rotSpeed = 4.0f;
-	const float frictionPower = -2.0f;
-	const Vector2D gravity = Vector2D(0.0, -0.98);
+	const float accPower = 250.0f; //Acceleartion power
+	const float rotSpeed = 4.0f; //Speed of rotation
+	const float frictionPower = -0.5f; //Variable to reduce speed
+	const Vector2D gravity = Vector2D(0.0, -0.98); //Gravity variable
 
 public:
 	Spaceship();
 	~Spaceship();
-
 	void Initialise(Vector2D initPos);
-	void Render();
 	void Update();
-
 };

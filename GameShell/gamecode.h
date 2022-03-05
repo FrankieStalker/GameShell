@@ -12,7 +12,10 @@
 #include "mysoundengine.h" // Includes sound engine
 #include "gametimer.h"
 
-#include "spaceship.h"
+//Promise that classes exist
+class Spaceship;
+class Rock;
+class GameObject;
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -52,7 +55,13 @@ private:
 	SoundIndex shootSound;			// Shoot sound
 	SoundIndex thrustSound;			// Thrust sound
 
-	Spaceship* pSpaceship = new Spaceship();
+	//Creating spaceship and gameobject pointers
+	Spaceship* pSpaceship;
+	GameObject* pSpaceshipGO;
+
+	//Creating rock and gameobject pointers
+	Rock* pRockA[10];
+	GameObject* pRockGO;
 
 public:
 	static Game instance;			// Singleton instance

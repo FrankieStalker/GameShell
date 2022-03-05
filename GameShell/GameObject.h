@@ -5,16 +5,14 @@
 class GameObject
 {
 private:
-	PictureIndex image;
+	PictureIndex image; //Image for object
 protected:
-	Vector2D pos;
-	bool active;
-	float angle;
-	std::wstring path;
+	Vector2D position; //Starting position of object
+	bool active; //Status check
+	float angle; //Angle in which is spawns
 
-	void loadImage(std::wstring fileName);		//This is the fucntion I'm confused about
+	virtual void loadImage(const wchar_t filename[]); //Load image function
 public:
-	void Render();
-	void Initialize();
-	virtual void Update() = 0;
+	void Render(); //Render function
+	virtual void Update() = 0; //Abstract update fucntion
 };

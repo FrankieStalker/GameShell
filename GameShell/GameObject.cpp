@@ -1,12 +1,20 @@
 #include "GameObject.h"
 
-void GameObject::Initialize()
+void GameObject::loadImage(const wchar_t filename[])
 {
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	image = pDE->LoadPicture(path.c_str());
+	image = MyDrawEngine::GetInstance()->LoadPicture(filename);
 }
 
-void GameObject::loadImage(std::wstring fileName)
+void GameObject::Render()
 {
-	path = fileName;
+	if (active == true)
+	{
+		//Draw image
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->DrawAt(position, image, 1.0f, angle);
+	}
+	else
+	{
+		active == false;
+	}
 }
