@@ -60,8 +60,9 @@ private:
 	GameObject* pSpaceshipGO;
 
 	//Creating rock and gameobject pointers
-	Rock* pRockA[10];
-	GameObject* pRockGO;
+	Rock* pRockA;
+	//GameObject* pRockGO;
+	GameObject* pGameObject[11];
 
 public:
 	static Game instance;			// Singleton instance

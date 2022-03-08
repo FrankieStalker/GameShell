@@ -282,28 +282,17 @@ ErrorType Game::StartOfGame()
 	// Code to set up your game *********************************************
 	// **********************************************************************
 
-	//MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	//image = pDE->LoadPicture(L"ship.bmp");
-	//pos = Vector2D(300, 300); //Set position in start function
-	//rot = 1.0f;
-
-	/*MySoundEngine* pSE = MySoundEngine::GetInstance();
-	shootSound = pSE->LoadWav(L"shoot.wav");
-
-	MySoundEngine* pSE2 = MySoundEngine::GetInstance();
-	thrustSound = pSE2->LoadWav(L"thrustloop2.wav");*/
-
 	srand(time(0)); // Set random number
 
 	pSpaceship = new Spaceship(); //Creating new spaceship from spaceship pointer
 	pSpaceship->Initialise(Vector2D(4.0f, 4.0f)); //Initilising the starting position
-	pSpaceshipGO = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
+	pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
 
 	for (int i = 0; i < 10; i++)
 	{
-		pRockA[i] = new Rock(); //Creating new rock from rock pointer
-		pRockA[i]->Initialise(); //Initilising the starting position
-		pRockGO = pRockA[i]; //rock GameObject pointer is copied to rock Rock pointer
+		pRockA = new Rock(); //Creating new rock from rock pointer
+		pRockA->Initialise(); //Initilising the starting position
+		pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
 	}
 
 	gt.mark();
@@ -334,51 +323,13 @@ ErrorType Game::Update()
 
 	// Your code goes here *************************************************
 	// *********************************************************************
-	 //Vector2D move(2.0f, 2.0f); //Move variable
-	 //pos = pos + move;//Set the position to current position + move variable
 
-	pSpaceshipGO->Render();
-	pSpaceshipGO->Update();
-
-	for (int i = 0; i < 10; i++)
+	//Loop through all gameObjects, render and update each
+	for (int i = 0; i < 11; i++)
 	{
-		pRockGO->Render();
-		pRockGO->Update();
-		pRockGO = pRockA[i];
+		pGameObject[i]->Render();
+		pGameObject[i]->Update();
 	}
-
-	/*MyInputs* pInputs = MyInputs::GetInstance();
-	pInputs->SampleKeyboard();
-
-	vel.setBearing(rot, 4.0f);
-
-	MySoundEngine* pSE2 = MySoundEngine::GetInstance();
-	if (pInputs->KeyPressed(DIK_W))
-	{
-		pos = pos + vel;
-		pSE2->Play(thrustSound, true);
-	}
-	else
-	{
-		pSE2->StopAllSounds();
-	}
-	if (pInputs->KeyPressed(DIK_A))
-	{
-		rot = rot - 0.05f;
-	}
-	if (pInputs->KeyPressed(DIK_D))
-	{
-		rot = rot + 0.05f;
-	}
-
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pDE->DrawAt(pos, image, 1.0f, rot);
-
-	MySoundEngine* pSE = MySoundEngine::GetInstance();
-	if (pInputs->KeyPressed(DIK_SPACE))
-	{
-		pSE->Play(shootSound);
-	}*/
 	
 	gt.mark();
 
@@ -400,18 +351,12 @@ ErrorType Game::EndOfGame()
 	// Add code here to tidy up ********************************************
 	// *********************************************************************
 
-	if (pSpaceship) //Check to see if pSpaceship exists, delete if it is
+	//Loop through all gameObjects, delete them and make them nullptr
+	for (int i = 0; i < 11; i++)
 	{
-		delete pSpaceship;
-		pSpaceship = nullptr;
+		delete pGameObject[i];
+		pGameObject[i] = nullptr;
 	}
-
-	for (int i = 0; i < 10; i++) //Loop to see if pRockA exists, delete each of them
-	{
-		delete pRockA[i];
-		pRockA[i] = nullptr;
-	}
-
 
 	return SUCCESS;
 }
