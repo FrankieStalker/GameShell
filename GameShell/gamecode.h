@@ -55,13 +55,11 @@ private:
 	SoundIndex shootSound;			// Shoot sound
 	SoundIndex thrustSound;			// Thrust sound
 
-	//Creating spaceship and gameobject pointers
+	//Creating spaceship pointer
 	Spaceship* pSpaceship;
-	GameObject* pSpaceshipGO;
-
-	//Creating rock and gameobject pointers
+	//Creating rock pointer
 	Rock* pRockA;
-	//GameObject* pRockGO;
+	//Creating GameObject pointer
 	GameObject* pGameObject[11];
 
 public:
