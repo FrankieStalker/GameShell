@@ -1,6 +1,9 @@
 #include "spaceship.h"
 #include "mydrawengine.h"
 #include "myinputs.h"
+#include "bullet.h"
+#include "objectmanager.h"
+
 
 Spaceship::Spaceship()
 {
@@ -12,15 +15,16 @@ Spaceship::~Spaceship()
 
 }
 
-void Spaceship::Initialise(Vector2D initPos)
+void Spaceship::Initialise(Vector2D initPos, ObjectManager* pOM)
 {
 	position = initPos;
+	pObjectManager = pOM;
 	angle = 1.0f;
 	active = true;
 	loadImage(L"ship.bmp");
 }
 
-void Spaceship::Update()
+void Spaceship::Update(float frameTime)
 {
 	//Pointer for inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
@@ -53,5 +57,18 @@ void Spaceship::Update()
 	if (pInputs->KeyPressed(DIK_D))
 	{
 		angle = angle + rotSpeed * frameTime;
+	}
+
+	if (pInputs->KeyPressed(DIK_SPACE))
+	{
+		Bullet* pBullet;
+		pBullet = new Bullet();
+		Vector2D bulletVel;
+		bulletVel.setBearing(angle, 200.0f);
+		pBullet->Initialise(position, velocity);
+		if (pObjectManager)
+		{
+			pObjectManager->AddObject(pBullet);
+		}
 	}
 }

@@ -1,5 +1,15 @@
 #include "GameObject.h"
 
+GameObject::GameObject()
+{
+
+}
+
+GameObject::~GameObject()
+{
+
+}
+
 void GameObject::loadImage(const wchar_t filename[])
 {
 	image = MyDrawEngine::GetInstance()->LoadPicture(filename);

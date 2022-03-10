@@ -11,8 +11,13 @@ protected:
 	bool active; //Status check
 	float angle; //Angle in which is spawns
 
-	virtual void loadImage(const wchar_t filename[]); //Load image function
+	float frameTime = 0.016f; //Frame time for 60s
+
+	void loadImage(const wchar_t filename[]); //Load image function
 public:
+	GameObject();
+	~GameObject();
+
 	void Render(); //Render function
-	virtual void Update() = 0; //Abstract update fucntion
+	virtual void Update(float frameTime) = 0; //Abstract update fucntion
 };

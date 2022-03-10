@@ -12,10 +12,10 @@
 #include "mysoundengine.h" // Includes sound engine
 #include "gametimer.h"
 
+#include "objectmanager.h"
+
 //Promise that classes exist
-class Spaceship;
-class Rock;
-class GameObject;
+//class ObjectManager;
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -46,21 +46,29 @@ private:
 
 	GameTimer gt;
 
+	// My code below
+
 	PictureIndex image;
 	Vector2D pos;					// Sprite position
 	float rot;						// Sprite rotation
 
 	Vector2D vel;					// Sprite velocity
 
-	SoundIndex shootSound;			// Shoot sound
 	SoundIndex thrustSound;			// Thrust sound
+
+	float frameTime = 0.016f; //Frame time for 60s
 
 	//Creating spaceship pointer
 	Spaceship* pSpaceship;
 	//Creating rock pointer
-	Rock* pRockA;
+	Rock* pRock;
 	//Creating GameObject pointer
-	GameObject* pGameObject[11];
+	//GameObject* pGameObject[11];
+
+	//Creating ObjectManager object
+	ObjectManager ObjectManager;
+
+	//My code above
 
 public:
 	static Game instance;			// Singleton instance

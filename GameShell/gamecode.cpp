@@ -285,14 +285,18 @@ ErrorType Game::StartOfGame()
 	srand(time(0)); // Set random number
 
 	pSpaceship = new Spaceship(); //Creating new spaceship from spaceship pointer
-	pSpaceship->Initialise(Vector2D(4.0f, 4.0f)); //Initilising the starting position
-	pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
+	pSpaceship->Initialise(Vector2D(4.0f, 4.0f), &ObjectManager); //Initilising the starting position
+	ObjectManager.AddObject(pSpaceship); //Add spaceship to object manager list
+
+	//pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
 
 	for (int i = 0; i < 10; i++)
 	{
-		pRockA = new Rock(); //Creating new rock from rock pointer
-		pRockA->Initialise(); //Initilising the starting position
-		pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
+		pRock = new Rock(); //Creating new rock from rock pointer
+		pRock->Initialise(); //Initilising the starting position
+		ObjectManager.AddObject(pRock); //Add asteroid to object manager list
+
+		//pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
 	}
 
 	gt.mark();
@@ -325,11 +329,15 @@ ErrorType Game::Update()
 	// *********************************************************************
 
 	//Loop through all gameObjects, render and update each
-	for (int i = 0; i < 11; i++)
+	/*for (int i = 0; i < 11; i++)
 	{
 		pGameObject[i]->Render();
-		pGameObject[i]->Update();
-	}
+		pGameObject[i]->Update(Game::frameTime);
+	}*/
+
+	//Object manager render and update all objects
+	ObjectManager.UpdateAll(frameTime);
+	ObjectManager.RenderAll();
 	
 	gt.mark();
 
@@ -352,11 +360,14 @@ ErrorType Game::EndOfGame()
 	// *********************************************************************
 
 	//Loop through all gameObjects, delete them and make them nullptr
-	for (int i = 0; i < 11; i++)
+	/*for (int i = 0; i < 11; i++)
 	{
 		delete pGameObject[i];
 		pGameObject[i] = nullptr;
-	}
+	}*/
+
+	//Object manager function for deleting all objects
+	ObjectManager.DeleteAllObjects();
 
 	return SUCCESS;
 }
