@@ -59,13 +59,13 @@ void Spaceship::Update(float frameTime)
 		angle = angle + rotSpeed * frameTime;
 	}
 
-	if (pInputs->KeyPressed(DIK_SPACE))
+	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{
 		Bullet* pBullet;
 		pBullet = new Bullet();
 		Vector2D bulletVel;
 		bulletVel.setBearing(angle, 200.0f);
-		pBullet->Initialise(position, velocity);
+		pBullet->Initialise(position, bulletVel);
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pBullet);

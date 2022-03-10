@@ -5,7 +5,6 @@
 class Bullet : public Spaceship
 {
 private:
-	Vector2D position; //Position of bullet
 	Vector2D velocity; //Volicty of bullet
 	SoundIndex shootSound; //Shoot sound
 public:
