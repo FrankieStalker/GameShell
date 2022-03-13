@@ -15,6 +15,14 @@ void GameObject::loadImage(const wchar_t filename[])
 	image = MyDrawEngine::GetInstance()->LoadPicture(filename);
 }
 
+void GameObject::loadSound(const wchar_t filename[])
+{
+	MySoundEngine* pSE = MySoundEngine::GetInstance();
+	sound = pSE->LoadWav(filename);
+	pSE->Play(sound);
+
+}
+
 void GameObject::Render()
 {
 	if (active == true)

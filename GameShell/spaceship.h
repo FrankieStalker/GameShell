@@ -5,12 +5,14 @@
 //Promise that this class exists
 class ObjectManager;
 
-class Spaceship : public GameObject 
+class Spaceship : public GameObject
 {
 private:
 	Vector2D velocity; //Velocity of spaceship
 	Vector2D acceleration; //Acceleration of spaceship
 	Vector2D friction; //Friction of spaceship
+
+	float shootDelay = 0.0f; //Delay on the shot
 
 	const float accPower = 250.0f; //Acceleartion power
 	const float rotSpeed = 4.0f; //Speed of rotation

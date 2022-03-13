@@ -59,16 +59,23 @@ void Spaceship::Update(float frameTime)
 		angle = angle + rotSpeed * frameTime;
 	}
 
-	if (pInputs->NewKeyPressed(DIK_SPACE))
+	if (pInputs->KeyPressed(DIK_SPACE))
 	{
-		Bullet* pBullet;
-		pBullet = new Bullet();
-		Vector2D bulletVel;
-		bulletVel.setBearing(angle, 200.0f);
-		pBullet->Initialise(position, bulletVel);
-		if (pObjectManager)
+		if (shootDelay <= 0)
 		{
-			pObjectManager->AddObject(pBullet);
+			shootDelay = 0.5f;
+			Bullet* pBullet;
+			pBullet = new Bullet();
+			Vector2D bulletVel;
+			bulletVel.setBearing(angle, 500.0f);
+			Vector2D bulletPosition = position;
+			pBullet->Initialise(bulletPosition, bulletVel);
+			pBullet->Shoot();
+			if (pObjectManager)
+			{
+				pObjectManager->AddObject(pBullet);
+			}
 		}
+		shootDelay = shootDelay - 0.5f * frameTime;
 	}
 }

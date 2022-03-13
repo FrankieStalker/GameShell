@@ -15,7 +15,9 @@
 #include "objectmanager.h"
 
 //Promise that classes exist
-//class ObjectManager;
+class Spaceship;
+class Rock;
+class GameObject;
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -46,16 +48,6 @@ private:
 
 	GameTimer gt;
 
-	// My code below
-
-	PictureIndex image;
-	Vector2D pos;					// Sprite position
-	float rot;						// Sprite rotation
-
-	Vector2D vel;					// Sprite velocity
-
-	SoundIndex thrustSound;			// Thrust sound
-
 	float frameTime = 0.016f; //Frame time for 60s
 
 	//Creating spaceship pointer
@@ -68,14 +60,12 @@ private:
 	//Creating ObjectManager object
 	ObjectManager ObjectManager;
 
-	//My code above
 
 public:
-	static Game instance;			// Singleton instance
-	
+	static Game instance;          // Singleton instance
 
-	// Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons
-	// This is called soon after the program runs
+   // Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons
+   // This is called soon after the program runs
 	ErrorType Setup(bool bFullScreen, HWND hwnd, HINSTANCE hinstance);
 
 	// Terminates the game engines - Draw Engine, Sound Engine, Input Engine
@@ -111,7 +101,3 @@ public:
 	// This will be used by the gameplay programmer to clean up
 	ErrorType EndOfGame();
 };
-
-
-
-
