@@ -19,8 +19,11 @@ protected:
 	void loadSound(const wchar_t fileName[]); //load sound function
 public:
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	void Render(); //Render function
 	virtual void Update(float frameTime) = 0; //Abstract update fucntion
+
+	bool IsActive() const;
+	void Deactivate();
 };

@@ -32,6 +32,8 @@ void ObjectManager::UpdateAll(float frameTime)
 
 void ObjectManager::RenderAll()
 {
+	MyDrawEngine::GetInstance()->WriteInt(50, 50, pObjectList.size(), MyDrawEngine::GREEN);
+
 	//Loop through each object in the list
 	for (GameObject* pNext : pObjectList)
 	{
@@ -56,4 +58,17 @@ void ObjectManager::DeleteAllObjects()
 	}
 	//Clear the object list
 	pObjectList.clear();
+}
+
+void ObjectManager::DeleteInactiveObjects()
+{
+	for (GameObject*& pNext : pObjectList)
+	{
+		if(!pNext->IsActive())
+		{
+			delete pNext;
+			pNext = nullptr;
+		}
+	}
+	pObjectList.remove(nullptr);
 }

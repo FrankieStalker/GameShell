@@ -338,6 +338,7 @@ ErrorType Game::Update()
 	//Object manager render and update all objects
 	ObjectManager.UpdateAll(frameTime);
 	ObjectManager.RenderAll();
+	ObjectManager.DeleteInactiveObjects();
 
 	gt.mark();
 

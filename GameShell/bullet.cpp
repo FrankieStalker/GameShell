@@ -2,7 +2,7 @@
 
 Bullet::Bullet()
 {
-	active = false;
+	Bullet::Deactivate();
 }
 
 Bullet::~Bullet()
@@ -26,7 +26,7 @@ void Bullet::Update(float frameTime)
 
 	if (timeDelay < 0)
 	{
-		active = false;
+		Bullet::Deactivate();
 	}
 }
 

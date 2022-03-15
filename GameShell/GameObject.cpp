@@ -25,14 +25,20 @@ void GameObject::loadSound(const wchar_t filename[])
 
 void GameObject::Render()
 {
-	if (active == true)
+	if (active)
 	{
 		//Draw image
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 		pDE->DrawAt(position, image, 1.0f, angle);
 	}
-	else
-	{
-		active == false;
-	}
+}
+
+bool GameObject::IsActive() const
+{
+	return active;
+}
+
+void GameObject::Deactivate()
+{
+	active = false;
 }

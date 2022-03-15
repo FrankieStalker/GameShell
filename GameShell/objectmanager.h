@@ -19,4 +19,5 @@ public:
 	void UpdateAll(float frameTime);
 	void RenderAll();
 	void DeleteAllObjects();
+	void DeleteInactiveObjects();
 };
