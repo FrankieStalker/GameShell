@@ -12,6 +12,8 @@ private:
 	Vector2D acceleration; //Acceleration of spaceship
 	Vector2D friction; //Friction of spaceship
 
+	Circle2D collisionShape; //Collision for spaceship
+
 	float shootDelay = 0.0f; //Delay on the shot
 
 	const float accPower = 250.0f; //Acceleartion power
@@ -26,5 +28,8 @@ public:
 	~Spaceship();
 
 	void Initialise(Vector2D initPos, ObjectManager* pOM);
-	void Update(float frameTime);
+	void Update(float frameTime) override;
+
+	IShape2D& GetShape();
+	void ProcessCollision(GameObject& gameObejct);
 };

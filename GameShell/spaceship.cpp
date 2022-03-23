@@ -1,7 +1,9 @@
 #include "spaceship.h"
-#include "mydrawengine.h"
+//#include "mydrawengine.h"
 #include "myinputs.h"
+#include "rock.h"
 #include "bullet.h"
+#include "Explosion.h"
 #include "objectmanager.h"
 
 
@@ -24,6 +26,27 @@ void Spaceship::Initialise(Vector2D initPos, ObjectManager* pOM)
 	loadImage(L"ship.bmp");
 }
 
+IShape2D& Spaceship::GetShape()
+{
+	return collisionShape;
+}
+
+void Spaceship::ProcessCollision(GameObject& gameObject)
+{
+	if (typeid(gameObject) == typeid(Rock))
+	{
+		Explosion* pExp;
+		pExp = new Explosion();
+		pExp->Initialise(position);
+		if (pObjectManager)
+		{
+			pObjectManager->AddObject(pExp);
+		}
+		active = false;
+		Deactivate();
+	}
+}
+ 
 void Spaceship::Update(float frameTime)
 {
 	//Pointer for inputs
@@ -78,4 +101,6 @@ void Spaceship::Update(float frameTime)
 		}
 		shootDelay = shootDelay - 0.5f * frameTime;
 	}
+
+	collisionShape.PlaceAt(position, 32);
 }

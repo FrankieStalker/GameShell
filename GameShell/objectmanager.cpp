@@ -1,4 +1,5 @@
 #include "objectmanager.h"
+#include <iostream>
 
 ObjectManager::ObjectManager()
 {
@@ -46,6 +47,25 @@ void ObjectManager::RenderAll()
 	}
 }
 
+void ObjectManager::CheckAllCollision()
+{
+	std::list<GameObject*>::iterator it1;
+	std::list<GameObject*>::iterator it2;
+	for (it1 = pObjectList.begin(); it1 != pObjectList.end(); it1++)
+	{
+		for (it2 = std::next(it1); it2 != pObjectList.end(); it2++)
+		{
+			if ((*it1) && (*it2) &&
+				(*it1)->IsActive() && (*it2)->IsActive() && //Check if active
+				(*it1)->GetShape().Intersects((*it2)->GetShape()))
+			{
+				(*it1)->ProcessCollision((**it2));
+				(*it2)->ProcessCollision((**it1));
+			}
+		}
+	}
+}
+
 void ObjectManager::DeleteAllObjects()
 {
 	//Loop through each object in the list
@@ -64,7 +84,7 @@ void ObjectManager::DeleteInactiveObjects()
 {
 	for (GameObject*& pNext : pObjectList)
 	{
-		if(!pNext->IsActive())
+		if (!pNext->IsActive())
 		{
 			delete pNext;
 			pNext = nullptr;

@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-
+	size = 1.0f;
 }
 
 GameObject::~GameObject()
@@ -29,7 +29,7 @@ void GameObject::Render()
 	{
 		//Draw image
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, image, 1.0f, angle);
+		pDE->DrawAt(position, image, size, angle);
 	}
 }
 

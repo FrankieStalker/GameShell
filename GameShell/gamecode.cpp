@@ -293,7 +293,7 @@ ErrorType Game::StartOfGame()
 	for (int i = 0; i < 10; i++)
 	{
 		pRock = new Rock(); //Creating new rock from rock pointer
-		pRock->Initialise(); //Initilising the starting position
+		pRock->Initialise(&ObjectManager); //Initilising the starting position
 		ObjectManager.AddObject(pRock); //Add asteroid to object manager list
 
 		//pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
@@ -338,6 +338,7 @@ ErrorType Game::Update()
 	//Object manager render and update all objects
 	ObjectManager.UpdateAll(frameTime);
 	ObjectManager.RenderAll();
+	ObjectManager.CheckAllCollision();
 	ObjectManager.DeleteInactiveObjects();
 
 	gt.mark();

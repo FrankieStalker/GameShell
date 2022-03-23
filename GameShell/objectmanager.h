@@ -20,4 +20,5 @@ public:
 	void RenderAll();
 	void DeleteAllObjects();
 	void DeleteInactiveObjects();
+	void CheckAllCollision();
 };

@@ -15,6 +15,8 @@ protected:
 
 	float frameTime = 0.016f; //Frame time for 60s
 
+	float size;
+
 	void loadImage(const wchar_t filename[]); //Load image function
 	void loadSound(const wchar_t fileName[]); //load sound function
 public:
@@ -23,6 +25,9 @@ public:
 
 	void Render(); //Render function
 	virtual void Update(float frameTime) = 0; //Abstract update fucntion
+
+	virtual IShape2D& GetShape() = 0; //Abstract function for collision
+	virtual void ProcessCollision(GameObject& gameObejct) = 0; //Abstract function for checking collsion
 
 	bool IsActive() const;
 	void Deactivate();

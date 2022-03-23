@@ -1,4 +1,6 @@
 #include "bullet.h"
+#include "rock.h"
+#include <typeinfo>
 
 Bullet::Bullet()
 {
@@ -8,6 +10,20 @@ Bullet::Bullet()
 Bullet::~Bullet()
 {
 
+}
+
+IShape2D& Bullet::GetShape()
+{
+	return collisionShape;
+}
+
+void Bullet::ProcessCollision(GameObject& gameObject)
+{
+	if (typeid(gameObject) == typeid(Rock))
+	{
+		active = false;
+		Deactivate();
+	}
 }
 
 void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
@@ -28,6 +44,8 @@ void Bullet::Update(float frameTime)
 	{
 		Bullet::Deactivate();
 	}
+
+	collisionShape.PlaceAt(position, 12);
 }
 
 void Bullet::Shoot()
