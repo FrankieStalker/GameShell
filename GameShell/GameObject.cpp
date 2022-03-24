@@ -10,9 +10,11 @@ GameObject::~GameObject()
 
 }
 
-void GameObject::loadImage(const wchar_t filename[])
+PictureIndex GameObject::loadImage(const wchar_t filename[])
 {
 	image = MyDrawEngine::GetInstance()->LoadPicture(filename);
+
+	return image;
 }
 
 void GameObject::loadSound(const wchar_t filename[])

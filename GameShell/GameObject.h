@@ -17,7 +17,7 @@ protected:
 
 	float size;
 
-	void loadImage(const wchar_t filename[]); //Load image function
+	PictureIndex loadImage(const wchar_t filename[]); //Load image function
 	void loadSound(const wchar_t fileName[]); //load sound function
 public:
 	GameObject();
