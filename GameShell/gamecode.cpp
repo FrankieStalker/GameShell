@@ -290,7 +290,7 @@ ErrorType Game::StartOfGame()
 
 	//pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		pRock = new Rock(); //Creating new rock from rock pointer
 		pRock->Initialise(&ObjectManager); //Initilising the starting position

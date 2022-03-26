@@ -23,7 +23,7 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
-	void Render(); //Render function
+	virtual void Render(); //Render function
 	virtual void Update(float frameTime) = 0; //Abstract update fucntion
 
 	virtual IShape2D& GetShape() = 0; //Abstract function for collision

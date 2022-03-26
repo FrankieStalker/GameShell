@@ -32,7 +32,7 @@ void Explosion::Render()
 {
 	if (active)
 	{
-		MyDrawEngine::GetInstance()->DrawAt(position, expImg[(int)currentImg], size, angle);
+		MyDrawEngine::GetInstance()->DrawAt(position, expImg[(int)currentImg], size*2, angle);
 	}
 }
 
@@ -53,4 +53,9 @@ IShape2D& Explosion::GetShape()
 void Explosion::ProcessCollision(GameObject& gameObejct)
 {
 
+}
+
+void Explosion::Explode()
+{
+	loadSound(L"explosion5.wav");
 }

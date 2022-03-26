@@ -38,6 +38,7 @@ void Spaceship::ProcessCollision(GameObject& gameObject)
 		Explosion* pExp;
 		pExp = new Explosion();
 		pExp->Initialise(position);
+		pExp->Explode();
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pExp);
@@ -49,6 +50,7 @@ void Spaceship::ProcessCollision(GameObject& gameObject)
  
 void Spaceship::Update(float frameTime)
 {
+	GameObject::Update(frameTime);
 	//Pointer for inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();

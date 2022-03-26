@@ -21,5 +21,7 @@ public:
 
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObejct);
+
+	void Explode();
 };
 

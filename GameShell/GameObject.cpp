@@ -25,6 +25,19 @@ void GameObject::loadSound(const wchar_t filename[])
 
 }
 
+void GameObject::Update(float frameTime)
+{
+	if (position.XValue > 1800.0f || position.XValue < -1800.0f)
+	{
+		position.XValue *= -1;
+	}
+
+	if (position.YValue > 1000.0f || position.YValue < -1000.f)
+	{
+		position.YValue *= -1;
+	}
+}
+
 void GameObject::Render()
 {
 	if (active)
