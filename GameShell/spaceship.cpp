@@ -101,8 +101,9 @@ void Spaceship::Update(float frameTime)
 				pObjectManager->AddObject(pBullet);
 			}
 		}
-		shootDelay = shootDelay - 0.5f * frameTime;
 	}
+
+	shootDelay = shootDelay - 0.5f * frameTime;
 
 	collisionShape.PlaceAt(position, 32);
 }
