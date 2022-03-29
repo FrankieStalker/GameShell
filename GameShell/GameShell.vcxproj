@@ -156,6 +156,7 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objecttypes.h" />
+    <ClInclude Include="PlayerChar.h" />
     <ClInclude Include="rock.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="spaceship.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="objectmanager.cpp" />
+    <ClCompile Include="PlayerChar.cpp" />
     <ClCompile Include="rock.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="spaceship.cpp" />

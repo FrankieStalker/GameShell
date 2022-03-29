@@ -11,8 +11,7 @@
 #include <math.h>
 #include "shapes.h"
 
-#include "spaceship.h"
-#include "rock.h"
+#include "PlayerChar.h"
 
 Game::Game()
 {
@@ -284,20 +283,20 @@ ErrorType Game::StartOfGame()
 
 	srand(time(0)); // Set random number
 
-	pSpaceship = new Spaceship(); //Creating new spaceship from spaceship pointer
-	pSpaceship->Initialise(Vector2D(4.0f, 4.0f), &ObjectManager); //Initilising the starting position
-	ObjectManager.AddObject(pSpaceship); //Add spaceship to object manager list
+	pPlayerChar = new PlayerChar(); //Create new Player character
+	pPlayerChar->Initialise(Vector2D(-1700.0f, -900.0f), &ObjectManager); //Initilise the starting position
+	ObjectManager.AddObject(pPlayerChar); //Add to object manager
 
 	//pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
 
-	for (int i = 0; i < 30; i++)
-	{
-		pRock = new Rock(); //Creating new rock from rock pointer
-		pRock->Initialise(&ObjectManager); //Initilising the starting position
-		ObjectManager.AddObject(pRock); //Add asteroid to object manager list
+	//for (int i = 0; i < 30; i++)
+	//{
+	//	pRock = new Rock(); //Creating new rock from rock pointer
+	//	pRock->Initialise(&ObjectManager); //Initilising the starting position
+	//	ObjectManager.AddObject(pRock); //Add asteroid to object manager list
 
-		//pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
-	}
+	//	//pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
+	//}
 
 	gt.mark();
 	gt.mark();

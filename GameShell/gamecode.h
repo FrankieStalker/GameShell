@@ -15,8 +15,7 @@
 #include "objectmanager.h"
 
 //Promise that classes exist
-class Spaceship;
-class Rock;
+class PlayerChar;
 class GameObject;
 
 // This is a hack for reading keyboard in situations where you don't want to
@@ -50,12 +49,9 @@ private:
 
 	float frameTime = 0.016f; //Frame time for 60s
 
-	//Creating spaceship pointer
-	Spaceship* pSpaceship;
-	//Creating rock pointer
-	Rock* pRock;
-	//Creating GameObject pointer
-	//GameObject* pGameObject[11];
+	//Creating player character pointer
+	PlayerChar* pPlayerChar;
+	
 
 	//Creating ObjectManager object
 	ObjectManager ObjectManager;
