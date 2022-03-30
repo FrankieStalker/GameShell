@@ -1,5 +1,6 @@
 #include "PlayerChar.h"
 #include "myinputs.h"
+#include "Platform.h"
 #include "objectmanager.h"
 
 
@@ -12,13 +13,17 @@ PlayerChar::~PlayerChar()
 {
 }
 
+bool PlayerChar::IsOnGround() const
+{
+	return false;
+}
+
 void PlayerChar::Initialise(Vector2D initPos, ObjectManager* pOM)
 {
 	position = initPos;
 	pObjectManager = pOM;
 	angle = 0.0f;
 	active = true;
-	jumping = false;
 	loadImage(L"puff1.bmp");
 }
 
@@ -31,23 +36,26 @@ void PlayerChar::Update(float frameTime)
 
 	if (pInputs->KeyPressed(DIK_D))			//Key press W -> go forwards
 	{
-		acceleration = Vector2D(500, 0);
+		acceleration = Vector2D(100, 0);
+		//acceleration.setBearing(angle, -accPower);
 		velocity = velocity + acceleration * frameTime;
 	}
 	if (pInputs->KeyPressed(DIK_A))			//Key press S -> go backwards
 	{
-		acceleration = Vector2D(-500, 0);
+		acceleration = Vector2D(-100, 0);
+		//acceleration.setBearing(angle, -accPower);
 		velocity = velocity + acceleration * frameTime;
 	}
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{
-		acceleration = Vector2D(0.0f, 100.0f);
-		velocity = velocity + acceleration + gravity * frameTime;
+		velocity.YValue = jumpForce;
 	}
 
-	//Setting friction, velocity and position
+	////Setting friction, velocity and position
+	acceleration = acceleration + gravity;
 	friction = frictionPower * velocity * frameTime;
-	velocity = velocity + friction;
+	velocity = velocity + acceleration * frameTime;
+	//velocity = velocity - velocity + friction * frameTime; //Cannot multiply by friction???
 	position = position + velocity * frameTime;
 }
 
@@ -59,4 +67,8 @@ IShape2D& PlayerChar::GetShape()
 
 void PlayerChar::ProcessCollision(GameObject& gameObejct)
 {
+	if (typeid(gameObejct) == typeid(Platform))
+	{
+		isOnGround = true;
+	}
 }

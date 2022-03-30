@@ -14,17 +14,19 @@ private:
 
 	Circle2D collisionShape; //Collision for spaceship
 
-	bool jumping;
-	float jumpCounter = 0.0f;
+	bool isOnGround;
+	float jumpForce = 100.0f;
 
-	const float frictionPower = -0.5f; //Variable to reduce speed
-	const Vector2D gravity = Vector2D(0.0, -0.98); //Gravity variable
+	float frictionPower = -0.5f; //Variable to reduce speed
+	const Vector2D gravity = Vector2D(0, -50.0f); //Gravity variable
 
 	ObjectManager* pObjectManager;
 
 public:
 	PlayerChar();
 	~PlayerChar();
+
+	bool IsOnGround() const;
 
 	void Initialise(Vector2D initPos, ObjectManager* pOM);
 	void Update(float frameTime) override;
