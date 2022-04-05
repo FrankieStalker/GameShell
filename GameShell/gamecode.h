@@ -16,6 +16,7 @@
 
 //Promise that classes exist
 class PlayerChar;
+class Terrain;
 class GameObject;
 
 // This is a hack for reading keyboard in situations where you don't want to
@@ -51,7 +52,9 @@ private:
 
 	//Creating player character pointer
 	PlayerChar* pPlayerChar;
-	
+
+	//Creating terrain pointer
+	Terrain* pTerrain;
 
 	//Creating ObjectManager object
 	ObjectManager ObjectManager;

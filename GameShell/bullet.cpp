@@ -36,7 +36,6 @@ void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
 
 void Bullet::Update(float frameTime)
 {
-	GameObject::Update(frameTime);
 	position = position + velocity * frameTime;
 
 	timeDelay = timeDelay - 1 * frameTime;

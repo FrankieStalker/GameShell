@@ -20,5 +20,5 @@ public:
 	void Shoot();
 
 	IShape2D& GetShape();
-	void ProcessCollision(GameObject& gameObejct);
+	void ProcessCollision(GameObject& gameObject);
 };

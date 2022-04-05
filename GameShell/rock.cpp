@@ -1,6 +1,6 @@
 #include "rock.h"
 #include "bullet.h"
-#include "gamecode.h"
+//#include "gamecode.h"
 #include "objectmanager.h"
 #include<typeinfo>.
 
@@ -45,7 +45,6 @@ void Rock::Initialise(Vector2D pos, Vector2D angle, float newSize, ObjectManager
 
 void Rock::Update(float frameTime)
 {
-	GameObject::Update(frameTime);
 	position = position + velocity * frameTime;
 
 	collisionShape.PlaceAt(position, 64*size);

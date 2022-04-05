@@ -12,6 +12,7 @@
 #include "shapes.h"
 
 #include "PlayerChar.h"
+#include "Terrain.h";
 
 Game::Game()
 {
@@ -284,8 +285,33 @@ ErrorType Game::StartOfGame()
 	srand(time(0)); // Set random number
 
 	pPlayerChar = new PlayerChar(); //Create new Player character
-	pPlayerChar->Initialise(Vector2D(-1700.0f, -900.0f), &ObjectManager); //Initilise the starting position
+	pPlayerChar->Initialise(Vector2D(-1700.0f, -700.0f), &ObjectManager); //Initilise the starting position
 	ObjectManager.AddObject(pPlayerChar); //Add to object manager
+
+	const int NUMBLOCKS = 10;
+
+	Vector2D bloackList[NUMBLOCKS] = {
+		Vector2D(-2000, -980),
+		Vector2D(-1500, -980),
+		Vector2D(-1000, -750),
+		Vector2D(-500, -580),
+		Vector2D(-1000, -280),
+		Vector2D(-1500, 0),
+		Vector2D(-700, 150),
+		Vector2D(100, 300),
+		Vector2D(1000, 300),
+		Vector2D(1600, 600),
+	};
+
+	for (int i = 0; i < NUMBLOCKS; i++)
+	{
+		pTerrain = new Terrain();
+		pTerrain->Initialise(bloackList[i], 1.0f, &ObjectManager);
+		ObjectManager.AddObject(pTerrain);
+	}
+	
+
+
 
 	//pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
 

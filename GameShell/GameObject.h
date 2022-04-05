@@ -24,10 +24,12 @@ public:
 	virtual ~GameObject();
 
 	virtual void Render(); //Render function
-	virtual void Update(float frameTime) = 0; //Abstract update fucntion
+	virtual void Update(float frameTime); //Abstract update fucntion
 
 	virtual IShape2D& GetShape() = 0; //Abstract function for collision
-	virtual void ProcessCollision(GameObject& gameObejct) = 0; //Abstract function for checking collsion
+	virtual void ProcessCollision(GameObject& gameObject) = 0; //Abstract function for checking collsion
+
+	const Vector2D& getPos() const;
 
 	bool IsActive() const;
 	void Deactivate();

@@ -20,8 +20,6 @@ public:
 	void Render();
 
 	IShape2D& GetShape();
-	void ProcessCollision(GameObject& gameObejct);
-
-	void Explode();
+	void ProcessCollision(GameObject& gameObject);
 };
 

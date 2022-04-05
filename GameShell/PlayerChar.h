@@ -13,12 +13,15 @@ private:
 	Vector2D friction; //Friction of spaceship
 
 	Circle2D collisionShape; //Collision for spaceship
+	/*PictureIndex expImg[14];
+	float currentImg = 0.0f;*/
 
 	bool isOnGround;
-	float jumpForce = 100.0f;
+	const float JUMP_FORCE = 3000.0f;
 
-	float frictionPower = -0.5f; //Variable to reduce speed
-	const Vector2D gravity = Vector2D(0, -50.0f); //Gravity variable
+	//float frictionPower = -0.5f; //Variable to reduce speed
+	const float FRICTION = 5.0f;
+	const Vector2D GRAVITY = Vector2D(0, -5000.0f); //Gravity variable
 
 	ObjectManager* pObjectManager;
 
@@ -30,8 +33,8 @@ public:
 
 	void Initialise(Vector2D initPos, ObjectManager* pOM);
 	void Update(float frameTime) override;
+	//void Render();
 
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObejct);
 };
-

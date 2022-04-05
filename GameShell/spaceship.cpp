@@ -38,7 +38,6 @@ void Spaceship::ProcessCollision(GameObject& gameObject)
 		Explosion* pExp;
 		pExp = new Explosion();
 		pExp->Initialise(position);
-		pExp->Explode();
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pExp);
@@ -47,10 +46,9 @@ void Spaceship::ProcessCollision(GameObject& gameObject)
 		Deactivate();
 	}
 }
- 
+
 void Spaceship::Update(float frameTime)
 {
-	GameObject::Update(frameTime);
 	//Pointer for inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -101,9 +99,8 @@ void Spaceship::Update(float frameTime)
 				pObjectManager->AddObject(pBullet);
 			}
 		}
+		shootDelay = shootDelay - 0.5f * frameTime;
 	}
-
-	shootDelay = shootDelay - 0.5f * frameTime;
 
 	collisionShape.PlaceAt(position, 32);
 }

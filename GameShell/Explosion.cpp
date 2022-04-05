@@ -16,7 +16,7 @@ void Explosion::Initialise(Vector2D pos)
 	position = pos;
 	active = true;
 
-	currentImg = 0;
+	currentImg = 0.0;
 
 	expImg[0] = loadImage(L"explosion1.bmp");
 	expImg[1] = loadImage(L"explosion2.bmp");
@@ -30,9 +30,12 @@ void Explosion::Initialise(Vector2D pos)
 
 void Explosion::Render()
 {
-	if (active)
+	for (int i = (int)currentImg; i < 8; i++)
 	{
-		MyDrawEngine::GetInstance()->DrawAt(position, expImg[(int)currentImg], size*2, angle);
+		if (active)
+		{
+			MyDrawEngine::GetInstance()->DrawAt(position, expImg[i], size*2, angle);
+		}
 	}
 }
 
@@ -53,9 +56,4 @@ IShape2D& Explosion::GetShape()
 void Explosion::ProcessCollision(GameObject& gameObejct)
 {
 
-}
-
-void Explosion::Explode()
-{
-	loadSound(L"explosion5.wav");
 }

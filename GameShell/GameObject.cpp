@@ -48,6 +48,12 @@ void GameObject::Render()
 	}
 }
 
+const Vector2D& GameObject::getPos() const
+{
+	// TODO: insert return statement here
+	return position;
+}
+
 bool GameObject::IsActive() const
 {
 	return active;

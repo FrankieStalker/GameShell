@@ -1,4 +1,3 @@
-
 #pragma once
 #include "GameObject.h"
 
@@ -27,5 +26,5 @@ public:
 	void Update(float frameTime) override;
 
 	IShape2D& GetShape();
-	void ProcessCollision(GameObject& gameObejct);
+	void ProcessCollision(GameObject& gameObject);
 };

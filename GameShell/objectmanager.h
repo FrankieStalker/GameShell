@@ -2,10 +2,10 @@
 #include <list>
 #include "GameObject.h"
 
-//Promise that classes exist
-class Spaceship;
-class Rock;
-class GameObject;
+////Promise that classes exist
+//class Spaceship;
+//class Rock;
+//class GameObject;
 
 class ObjectManager
 {

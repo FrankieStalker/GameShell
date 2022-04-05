@@ -156,11 +156,11 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="objecttypes.h" />
-    <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayerChar.h" />
     <ClInclude Include="rock.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="spaceship.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -175,11 +175,11 @@
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="objectmanager.cpp" />
-    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayerChar.cpp" />
     <ClCompile Include="rock.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="spaceship.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
