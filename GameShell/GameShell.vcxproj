@@ -145,12 +145,16 @@
   <ItemGroup>
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Door.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="errortype.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="gamecode.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gametimer.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />
     <ClInclude Include="mysoundengine.h" />
@@ -160,17 +164,22 @@
     <ClInclude Include="rock.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="spaceship.h" />
+    <ClInclude Include="Spikes.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="gamecode.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
@@ -179,6 +188,7 @@
     <ClCompile Include="rock.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="spaceship.cpp" />
+    <ClCompile Include="Spikes.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="wincode.cpp" />

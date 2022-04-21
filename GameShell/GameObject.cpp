@@ -25,17 +25,27 @@ void GameObject::loadSound(const wchar_t filename[])
 
 }
 
-void GameObject::Update(float frameTime)
+void GameObject::ScreenWrap()
 {
-	if (position.XValue > 1800.0f || position.XValue < -1800.0f)
+	/*if (position.XValue > 1800.0f || position.XValue < -1800.0f)
 	{
 		position.XValue *= -1;
-	}
+	}*/
 
-	if (position.YValue > 1000.0f || position.YValue < -1000.f)
+	/*if (position.YValue > 1000.0f || position.YValue < -1000.f)
 	{
 		position.YValue *= -1;
-	}
+	}*/
+}
+
+int GameObject::GetEdge(Vector2D other)
+{
+	if (other.XValue < position.XValue - WIDTH / 2) return 3; //Left
+	else if (other.XValue > position.XValue + WIDTH / 2) return 4; //Right
+	else if (other.YValue > position.YValue + HEIGHT / 2) return 1; //Top
+	else if (other.YValue < position.YValue - HEIGHT / 2) return 2; //Bottom
+	else if (other.XValue > position.XValue) return 1; //Top
+	else { return 2; } //Bottom
 }
 
 void GameObject::Render()

@@ -4,26 +4,31 @@
 
 //Promise that this class exists
 class ObjectManager;
+class GameManager;
 
 class PlayerChar : public GameObject
 {
 private:
 	Vector2D velocity; //Velocity of spaceship
 	Vector2D acceleration; //Acceleration of spaceship
-	Vector2D friction; //Friction of spaceship
 
 	Circle2D collisionShape; //Collision for spaceship
 	/*PictureIndex expImg[14];
 	float currentImg = 0.0f;*/
+	float cameraHeight;
+	float cameraWidth;
+
+	float shootDelay = 0.0f; //Delay on the shot
 
 	bool isOnGround;
-	const float JUMP_FORCE = 3000.0f;
+	const float JUMP_FORCE = 4000.0f;
 
 	//float frictionPower = -0.5f; //Variable to reduce speed
 	const float FRICTION = 5.0f;
 	const Vector2D GRAVITY = Vector2D(0, -5000.0f); //Gravity variable
 
 	ObjectManager* pObjectManager;
+	GameManager* pGameManager;
 
 public:
 	PlayerChar();
@@ -31,7 +36,7 @@ public:
 
 	bool IsOnGround() const;
 
-	void Initialise(Vector2D initPos, ObjectManager* pOM);
+	void Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
 	//void Render();
 

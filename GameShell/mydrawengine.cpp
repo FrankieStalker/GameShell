@@ -912,7 +912,7 @@ ErrorType MyDrawEngine::DrawAt(Vector2D position, PictureIndex pic, float scale,
 	if(picit==m_MyPictureList.end())
 	{
 		ErrorLogger::Writeln(L"Attempting to draw an invalid PictureIndex in DrawAt.");
-		WriteText(originalPosition, L"No Image", WHITE);
+		//WriteText(originalPosition, L"No Image", WHITE); //Commented out to help with immersion
 		return FAILURE;	
 	}
 	

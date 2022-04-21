@@ -1,4 +1,4 @@
-// GameCode.cpp		
+﻿// GameCode.cpp		
 
 
 #include "gamecode.h"
@@ -284,45 +284,7 @@ ErrorType Game::StartOfGame()
 
 	srand(time(0)); // Set random number
 
-	pPlayerChar = new PlayerChar(); //Create new Player character
-	pPlayerChar->Initialise(Vector2D(-1700.0f, -700.0f), &ObjectManager); //Initilise the starting position
-	ObjectManager.AddObject(pPlayerChar); //Add to object manager
-
-	const int NUMBLOCKS = 10;
-
-	Vector2D bloackList[NUMBLOCKS] = {
-		Vector2D(-2000, -980),
-		Vector2D(-1500, -980),
-		Vector2D(-1000, -750),
-		Vector2D(-500, -580),
-		Vector2D(-1000, -280),
-		Vector2D(-1500, 0),
-		Vector2D(-700, 150),
-		Vector2D(100, 300),
-		Vector2D(1000, 300),
-		Vector2D(1600, 600),
-	};
-
-	for (int i = 0; i < NUMBLOCKS; i++)
-	{
-		pTerrain = new Terrain();
-		pTerrain->Initialise(bloackList[i], 1.0f, &ObjectManager);
-		ObjectManager.AddObject(pTerrain);
-	}
-	
-
-
-
-	//pGameObject[0] = pSpaceship; //spaceship GameObject pointer is copied to spaceship Spaceship pointer
-
-	//for (int i = 0; i < 30; i++)
-	//{
-	//	pRock = new Rock(); //Creating new rock from rock pointer
-	//	pRock->Initialise(&ObjectManager); //Initilising the starting position
-	//	ObjectManager.AddObject(pRock); //Add asteroid to object manager list
-
-	//	//pGameObject[i+1] = pRockA; //rock GameObject pointer is copied to rock Rock pointer
-	//}
+	theGameManager.StartLevel(1);
 
 	gt.mark();
 	gt.mark();
@@ -353,22 +315,15 @@ ErrorType Game::Update()
 	// Your code goes here *************************************************
 	// *********************************************************************
 
-	//Loop through all gameObjects, render and update each
-	/*for (int i = 0; i < 11; i++)
-	{
-		pGameObject[i]->Render();
-		pGameObject[i]->Update(Game::frameTime);
-	}*/
-
-	//Object manager render and update all objects
-	ObjectManager.UpdateAll(frameTime);
-	ObjectManager.RenderAll();
-	ObjectManager.CheckAllCollision();
-	ObjectManager.DeleteInactiveObjects();
+	//Object manager render, update, check collsions and delete inactive for all objects
+	theGameManager.theObjectManager.UpdateAll(frameTime);
+	theGameManager.theObjectManager.RenderAll();
+	theGameManager.theObjectManager.CheckAllCollision();
+	theGameManager.theObjectManager.DeleteInactiveObjects();
+	theGameManager.Update(frameTime);
+	theGameManager.Render();
 
 	gt.mark();
-
-
 
 	// *********************************************************************
 	// *********************************************************************
@@ -386,15 +341,36 @@ ErrorType Game::EndOfGame()
 	// Add code here to tidy up ********************************************
 	// *********************************************************************
 
-	//Loop through all gameObjects, delete them and make them nullptr
-	/*for (int i = 0; i < 11; i++)
-	{
-		delete pGameObject[i];
-		pGameObject[i] = nullptr;
-	}*/
-
 	//Object manager function for deleting all objects
-	ObjectManager.DeleteAllObjects();
+	theGameManager.theObjectManager.DeleteAllObjects();
+	//theGameManager.ClearTerrainList();
 
 	return SUCCESS;
 }
+
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣴⣆⣠⣤⠀⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣯⣘⠹⣧⣤⡀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⢿⣿⣷⣾⣯⠉⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⠜⣿⡍⠀⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⠁⠀⠘⣿⣆⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⡟⠃⡄⠀⠘⢿⣆⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣁⣋⣈ ⣤⣮⣿⣧⡀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⣸⣿⡏⠀⠀⠀⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⢰⣿⣿⣯⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⡄⠀
+//⠀⠀⣀⣤⣴⣶⣶⣿⡟⠀⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⠀
+//⠀⢰⣿⡟⠋⠉⣹⣿⡇⠀⠀⠀⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿⣿⣿⠀
+//⠀⢸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀
+//⠀⣸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻⣿⡇⠀⠀
+//⠀⣿⣿⠁⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⠀⠀
+//⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀
+//⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀
+//⠀⢿⣿⡆⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀
+//⠀⠸⣿⣧⡀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃⠀⠀
+//⠀⠀⠛⢿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⣰⣿⣿⣷⣶⣶⣶⣶⠶⠀⢠⣿⣿⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

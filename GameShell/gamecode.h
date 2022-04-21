@@ -12,12 +12,8 @@
 #include "mysoundengine.h" // Includes sound engine
 #include "gametimer.h"
 
-#include "objectmanager.h"
-
-//Promise that classes exist
-class PlayerChar;
-class Terrain;
-class GameObject;
+//#include "objectmanager.h"
+#include "GameManager.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -50,15 +46,8 @@ private:
 
 	float frameTime = 0.016f; //Frame time for 60s
 
-	//Creating player character pointer
-	PlayerChar* pPlayerChar;
-
-	//Creating terrain pointer
-	Terrain* pTerrain;
-
-	//Creating ObjectManager object
-	ObjectManager ObjectManager;
-
+	//Creating GameManager object
+	GameManager theGameManager;
 
 public:
 	static Game instance;          // Singleton instance

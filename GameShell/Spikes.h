@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
 
-//Promise that this class exists
+//Promise this class
 class ObjectManager;
 class GameManager;
 
-class Terrain : public GameObject
+class Spikes : public GameObject
 {
 private:
 	Rectangle2D collisionShape;
@@ -14,9 +14,11 @@ private:
 
 	GameManager* pGameManager;
 
+	static const int SPIKESIZE = 510;
+
 public:
-	Terrain();
-	~Terrain();
+	Spikes();
+	~Spikes();
 
 	void Initialise(Vector2D pos, float size, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
@@ -28,3 +30,4 @@ public:
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObject);
 };
+

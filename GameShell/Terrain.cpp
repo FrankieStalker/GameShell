@@ -1,11 +1,10 @@
 #include "Terrain.h"
 #include "objectmanager.h"
-#include "PlayerChar.h"
-#include<typeinfo>.
+#include "GameManager.h"
 
 Terrain::Terrain()
 {
-	Deactivate();
+
 }
 
 Terrain::~Terrain()
@@ -13,15 +12,16 @@ Terrain::~Terrain()
 
 }
 
-void Terrain::Initialise(Vector2D pos, float platSize, ObjectManager* pOM)
+void Terrain::Initialise(Vector2D pos, float platSize, ObjectManager* pOM, GameManager* pGM)
 {
 	position = pos;
 	size = platSize;
 	pObjectManager = pOM;
+	pGameManager = pGM;
 	active = true;
-	collisionShape.PlaceAt(pos.YValue + HEIGHT / 2, pos.XValue - WIDTH/2, pos.YValue - HEIGHT / 2,  pos.XValue + WIDTH/2);
+	collisionShape.PlaceAt(pos.YValue + HEIGHT / 2, pos.XValue - WIDTH / 2, pos.YValue - HEIGHT / 2, pos.XValue + WIDTH / 2);
 
-	loadImage(L"platform.png");
+	loadImage(L"Terrain.png");
 }
 
 void Terrain::Update(float frameTime)
@@ -29,16 +29,9 @@ void Terrain::Update(float frameTime)
 	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 }
 
-int Terrain::GetEdge(Vector2D other)
+Vector2D Terrain::GetCollsionNormal(Circle2D other)
 {
-	if (other.XValue < position.XValue
-		&& other.YValue < position.YValue + HEIGHT / 2
-		&& other.YValue > position.YValue - HEIGHT / 2)
-	return 1;
-	/*else if (other.XValue < position.XValue
-		&& other.YValue < position.YValue + HEIGHT / 2
-		&& other.YValue > position.YValue - HEIGHT / 2)
-		return 2;*/
+	return collisionShape.CollisionNormal(other);
 }
 
 IShape2D& Terrain::GetShape()
@@ -49,5 +42,5 @@ IShape2D& Terrain::GetShape()
 
 void Terrain::ProcessCollision(GameObject& gameObject)
 {
-	
+
 }

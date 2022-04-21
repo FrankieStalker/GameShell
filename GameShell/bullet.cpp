@@ -1,6 +1,5 @@
 #include "bullet.h"
-#include "rock.h"
-#include <typeinfo>
+#include "Enemy.h"
 
 Bullet::Bullet()
 {
@@ -19,7 +18,7 @@ IShape2D& Bullet::GetShape()
 
 void Bullet::ProcessCollision(GameObject& gameObject)
 {
-	if (typeid(gameObject) == typeid(Rock))
+	if (typeid(gameObject) == typeid(Enemy))
 	{
 		active = false;
 		Deactivate();
@@ -42,7 +41,7 @@ void Bullet::Update(float frameTime)
 
 	if (timeDelay < 0)
 	{
-		Bullet::Deactivate();
+		Deactivate();
 	}
 
 	collisionShape.PlaceAt(position, 12);

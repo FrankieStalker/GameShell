@@ -24,7 +24,10 @@ public:
 	virtual ~GameObject();
 
 	virtual void Render(); //Render function
-	virtual void Update(float frameTime); //Abstract update fucntion
+	virtual void Update(float frameTime) = 0; //Abstract update fucntion
+
+	void ScreenWrap();
+	int GetEdge(Vector2D other);
 
 	virtual IShape2D& GetShape() = 0; //Abstract function for collision
 	virtual void ProcessCollision(GameObject& gameObject) = 0; //Abstract function for checking collsion
@@ -33,4 +36,7 @@ public:
 
 	bool IsActive() const;
 	void Deactivate();
+
+	static const int WIDTH = 510;
+	static const int HEIGHT = 125;
 };
