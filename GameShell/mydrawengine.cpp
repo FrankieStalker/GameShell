@@ -10,6 +10,7 @@
 
 
 #include "mydrawengine.h"
+#include "GameManager.h"
 #include <algorithm>			// Using find() in DeregisterPicture
 
 MyDrawEngine* MyDrawEngine::instance=nullptr;
@@ -522,7 +523,7 @@ ErrorType MyDrawEngine::ReloadPicture(PictureIndex pic)
 ErrorType MyDrawEngine::ClearBackBuffer()
 {
 	//Clear
-	HRESULT err = m_lpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, 0,1.0f,0);
+	HRESULT err = m_lpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, pGameManager->BackgroundColour(BLACK),1.0f,0);
 
 	if(FAILED(err))
 	{

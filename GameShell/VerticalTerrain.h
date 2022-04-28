@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "Terrain.h"
 
 //Promise that this class exists
 class ObjectManager;
 class GameManager;
 
-class Terrain : public GameObject
+class VerticalTerrain : public Terrain
 {
 private:
 	Rectangle2D collisionShape;
@@ -13,18 +13,19 @@ private:
 	ObjectManager* pObjectManager;
 
 	GameManager* pGameManager;
-
 public:
-	Terrain();
-	~Terrain();
+	VerticalTerrain();
+	~VerticalTerrain();
 
 	void Initialise(Vector2D pos, float platSize, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
-
-	int GetEdge(Vector2D other);
 
 	Vector2D GetCollsionNormal(Circle2D other);
 
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObject);
+
+	static const int VERTWIDTH = 125;
+	static const int VERTHEIGHT = 510;
 };
+

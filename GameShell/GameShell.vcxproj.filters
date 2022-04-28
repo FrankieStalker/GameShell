@@ -87,6 +87,12 @@
     <ClInclude Include="Key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FlyingEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalTerrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -156,6 +162,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalTerrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

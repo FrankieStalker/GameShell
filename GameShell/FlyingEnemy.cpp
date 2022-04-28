@@ -1,58 +1,46 @@
-#include "Enemy.h"
+#include "FlyingEnemy.h"
 #include "rock.h"
 #include "bullet.h"
 
 #include "GameManager.h"
 
-Enemy::Enemy()
+FlyingEnemy::FlyingEnemy()
 {
 }
 
-Enemy::~Enemy()
+FlyingEnemy::~FlyingEnemy()
 {
 }
 
-void Enemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager* pOM, GameManager* pGM)
+void FlyingEnemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager* pOM, GameManager* pGM)
 {
 	position = pos;
 	velocity = vel;
 	size = newSize;
+
+	angle = 1.55f;
 
 	pObjectManager = pOM;
 	pGameManager = pGM;
 
 	active = true;
 
-	loadImage(L"EnemyIcon.png");
+	loadImage(L"FlyingEnemy.png");
 }
 
-void Enemy::Update(float frameTime)
+void FlyingEnemy::Update(float frameTime)
 {
-	//ScreenWrap();
-	Vector2D beneathMe;
-	if (direction == true)
-		beneathMe = position - Vector2D(-10, 75);
-	else
-		beneathMe = position - Vector2D(10, 75);
-
-	MyDrawEngine::GetInstance()->DrawLine(position, beneathMe, MyDrawEngine::RED);
-	if (!pGameManager->CollidesGround(beneathMe))
-	{
-		velocity = -velocity;
-	}
-
-	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 	collisionShape.PlaceAt(position.YValue + 64 / 2, position.XValue - 64 / 2, position.YValue - 64 / 2, position.XValue + 64 / 2);
 	position = position + velocity * frameTime;
 }
 
-IShape2D& Enemy::GetShape()
+IShape2D& FlyingEnemy::GetShape()
 {
 	// TODO: insert return statement here
 	return collisionShape;
 }
 
-void Enemy::ProcessCollision(GameObject& gameObject)
+void FlyingEnemy::ProcessCollision(GameObject& gameObject)
 {
 	if (typeid(gameObject) == typeid(Rock))
 	{
@@ -62,11 +50,13 @@ void Enemy::ProcessCollision(GameObject& gameObject)
 		{
 			position.XValue = gameObject.getPos().XValue - (64 + Terrain::WIDTH) / 2;
 			velocity.XValue = -velocity.XValue;
+			angle = -angle;
 		}
 		if (edge == 4) //Right
 		{
 			position.XValue = gameObject.getPos().XValue + (64 + Terrain::WIDTH) / 2;
 			velocity.XValue = -velocity.XValue;
+			angle = -angle;
 		}
 	}
 	if (typeid(gameObject) == typeid(Bullet))

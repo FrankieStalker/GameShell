@@ -23,6 +23,8 @@ private:
 	bool isOnGround;
 	const float JUMP_FORCE = 4000.0f;
 
+	bool ready;
+
 	//float frictionPower = -0.5f; //Variable to reduce speed
 	const float FRICTION = 5.0f;
 	const Vector2D GRAVITY = Vector2D(0, -5000.0f); //Gravity variable
@@ -39,6 +41,9 @@ public:
 	void Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
 	//void Render();
+
+	void StartPlay();
+	bool IsReady();
 
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObejct);

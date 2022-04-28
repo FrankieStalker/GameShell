@@ -11,9 +11,6 @@
 #include <math.h>
 #include "shapes.h"
 
-#include "PlayerChar.h"
-#include "Terrain.h";
-
 Game::Game()
 {
 	// No-op
@@ -343,7 +340,7 @@ ErrorType Game::EndOfGame()
 
 	//Object manager function for deleting all objects
 	theGameManager.theObjectManager.DeleteAllObjects();
-	//theGameManager.ClearTerrainList();
+	theGameManager.ClearTerrainList();
 
 	return SUCCESS;
 }

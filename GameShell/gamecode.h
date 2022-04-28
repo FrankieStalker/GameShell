@@ -38,8 +38,6 @@ private:
 								  //            after tidying up
 	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
-	Game();                        // Constructor
-	~Game();                       // Destructor
 	Game(Game& other);             // Copy constructor disabled
 
 	GameTimer gt;
@@ -50,6 +48,8 @@ private:
 	GameManager theGameManager;
 
 public:
+	Game();                        // Constructor
+	~Game();                       // Destructor
 	static Game instance;          // Singleton instance
 
    // Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons

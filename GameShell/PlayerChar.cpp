@@ -1,8 +1,11 @@
 #include "PlayerChar.h"
 #include "myinputs.h"
 #include "Terrain.h"
+#include "VerticalTerrain.h"
 #include "Spikes.h"
+#include "rock.h"
 #include "Enemy.h"
+#include "FlyingEnemy.h"
 #include "bullet.h"
 
 #include "objectmanager.h"
@@ -30,6 +33,7 @@ void PlayerChar::Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* p
 	pGameManager = pGM;
 	angle = 1.55f;
 	active = true;
+	ready = false;
 
 	//currentImg = 0.0;
 
@@ -58,8 +62,9 @@ void PlayerChar::Update(float frameTime)
 		currentImg = 0.0f;
 	}*/
 
+	//if (!ready) return;
 	acceleration.set(0, 0);
-	ScreenWrap();
+	//ScreenWrap();
 	//Pointer for inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -141,6 +146,16 @@ void PlayerChar::Update(float frameTime)
 	isOnGround = false;
 }
 
+void PlayerChar::StartPlay()
+{
+	ready = true;
+}
+
+bool PlayerChar::IsReady()
+{
+	return ready;
+}
+
 IShape2D& PlayerChar::GetShape()
 {
 	// TODO: insert return statement here
@@ -213,6 +228,47 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		}
 	}
 
+	if (typeid(gameObject) == typeid(VerticalTerrain))
+	{
+		Vector2D normal = dynamic_cast <VerticalTerrain*>(&gameObject)->GetCollsionNormal(collisionShape); // Gets the vector that points away from the object
+		if (normal.XValue < 0.8f) //If vector is mostly pointing sideways
+		{
+			isOnGround = true;
+		}
+		else {
+			isOnGround = false;
+		}
+		velocity = velocity - 2 * (velocity * normal) * normal * 0.5f; //Move away from object
+		position = position + dynamic_cast <VerticalTerrain*>(&gameObject)->GetCollsionNormal(collisionShape) * 1; //Move away from object
+
+		int edge = dynamic_cast <GameObject*>(&gameObject)->GetEdge(position); //Worked out address of game object and cast that to Terrain pointer, call get edge function taking the position of the player as a parameter
+
+		if (edge == 3 && !isOnGround || edge == 3 && isOnGround) //Left
+		{
+			isOnGround = false;
+			if (velocity.XValue > 5.0f)
+			{
+				position.XValue = gameObject.getPos().XValue - (64 + VerticalTerrain::VERTWIDTH) / 2;
+			}
+			if (velocity.XValue > 0)
+			{
+				velocity.XValue = -velocity.XValue;
+			}
+		}
+		if (edge == 4 && !isOnGround || edge == 4 && isOnGround) //Right
+		{
+			isOnGround = false;
+			if (velocity.XValue < -25.0f)
+			{
+				position.XValue = gameObject.getPos().XValue + (64 + VerticalTerrain::VERTWIDTH) / 2;
+			}
+			if (velocity.XValue < 0)
+			{
+				velocity.XValue = -velocity.XValue;
+			}
+		}
+	}
+
 	if (typeid(gameObject) == typeid(Spikes))
 	{
 		Deactivate();
@@ -221,7 +277,7 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 	}
 
 	//if enemy collides 
-	if (typeid(gameObject) == typeid(Enemy))
+	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy))
 	{
 		Deactivate();
 		pGameManager->PlayerDead();

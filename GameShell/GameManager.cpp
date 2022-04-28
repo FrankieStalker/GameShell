@@ -1,8 +1,11 @@
 #include <fstream>
 
+#include "gamecode.h"
 #include "GameManager.h"
 #include "Terrain.h"
+#include "VerticalTerrain.h"
 #include "Enemy.h"
+#include "FlyingEnemy.h"
 #include "PlayerChar.h"
 #include "rock.h"
 #include "Spikes.h"
@@ -19,11 +22,15 @@ GameManager::~GameManager(){}
 void GameManager::StartLevel(int level)
 {
     levelNum = level;
+	startLevelTimer = -5.0f;
+	
     if(levelNum == 1) //Run level 1 code
 	{
 		//Delete all objects at the start of the level
 		//Clear all objects of previous level
 		theObjectManager.DeleteAllObjects();
+		ClearTerrainList();
+
 		keyCollected = false;
 		levelProceed = 3;
 		endLevelTimer = 101.0f;
@@ -45,14 +52,15 @@ void GameManager::StartLevel(int level)
 				Terrain* t = new Terrain();
 				t->Initialise(Vector2D(x, y), 1.0f, &theObjectManager, this);
 				theObjectManager.AddObject(t);
+				pTerrainList.push_back(t);
 			}
 
-			if (a == 'b') //If b appears in the file create a collision box
-			{
-				Rock* pRock = new Rock();
-				pRock->Initialise(Vector2D(x, y), &theObjectManager, this);
-				theObjectManager.AddObject(pRock);
-			}
+			//if (a == 'b') //If b appears in the file create a collision box
+			//{
+			//	Rock* pRock = new Rock();
+			//	pRock->Initialise(Vector2D(x, y), &theObjectManager, this);
+			//	theObjectManager.AddObject(pRock);
+			//}
 
 			if (a == 'e') //If e appears in the file create an enemy
 			{
@@ -141,22 +149,23 @@ void GameManager::StartLevel(int level)
 				Terrain* t = new Terrain();
 				t->Initialise(Vector2D(x, y), 1.0f, &theObjectManager, this);
 				theObjectManager.AddObject(t);
+				pTerrainList.push_back(t);
 			}
 
-			if (a == 'b') //If b appears in the file create a collision box
-			{
-				Rock* pRock = new Rock();
-				pRock->Initialise(Vector2D(x, y), &theObjectManager, this);
-				theObjectManager.AddObject(pRock);
-			}
+			//if (a == 'b') //If b appears in the file create a collision box
+			//{
+			//	Rock* pRock = new Rock();
+			//	pRock->Initialise(Vector2D(x, y), &theObjectManager, this);
+			//	theObjectManager.AddObject(pRock);
+			//}
 
-			if (a == 'e') //If e appears in the file create an enemy
-			{
-				Enemy* pEnemy = new Enemy();
-				Vector2D vel(100, 0);
-				pEnemy->Initialise(Vector2D(x, y), vel, 0.5f, &theObjectManager, this);
-				theObjectManager.AddObject(pEnemy);
-			}
+			//if (a == 'e') //If e appears in the file create an enemy
+			//{
+			//	Enemy* pEnemy = new Enemy();
+			//	Vector2D vel(100, 0);
+			//	pEnemy->Initialise(Vector2D(x, y), vel, 0.5f, &theObjectManager, this);
+			//	theObjectManager.AddObject(pEnemy);
+			//}
 
 			if (a == 'p') //If p appears in the file create a player
 			{
@@ -210,6 +219,88 @@ void GameManager::StartLevel(int level)
 			theObjectManager.AddObject(pKey);
 		}
 	}
+	if (levelNum == 3)
+	{
+		theObjectManager.DeleteAllObjects();
+		levelProceed = 3;
+		keyCollected = false;
+		endLevelTimer = 26.0f;
+
+		std::ifstream level3;
+		level3.open("level3.txt");
+
+		while (level3)
+		{
+			char a;
+			level3 >> a;
+			float x;
+			level3 >> x;
+			float y;
+			level3 >> y;
+
+			if (a == 't') //If t appears in the file create a platform
+			{
+				Terrain* t = new Terrain();
+				t->Initialise(Vector2D(x, y), 1.0f, &theObjectManager, this);
+				theObjectManager.AddObject(t);
+				pTerrainList.push_back(t);
+			}
+
+			if (a == 'v') //If t appears in the file create a platform
+			{
+				VerticalTerrain* vt = new VerticalTerrain();
+				vt->Initialise(Vector2D(x, y), 1.0f, &theObjectManager, this);
+				theObjectManager.AddObject(vt);
+				pTerrainList.push_back(vt);
+			}
+
+			if (a == 'b') //If b appears in the file create a collision box
+			{
+				Rock* pRock = new Rock();
+				pRock->Initialise(Vector2D(x, y), &theObjectManager, this);
+				theObjectManager.AddObject(pRock);
+			}
+
+			if (a == 'f')
+			{
+				FlyingEnemy* pFlyingEnemy = new FlyingEnemy();
+				Vector2D vel(rand() % -500 + 500, 0);
+				pFlyingEnemy->Initialise(Vector2D(x, y), vel, 0.5f, &theObjectManager, this);
+				theObjectManager.AddObject(pFlyingEnemy);
+			}
+
+			//if (a == 'e') //If e appears in the file create an enemy
+			//{
+			//	Enemy* pEnemy = new Enemy();
+			//	Vector2D vel(100, 0);
+			//	pEnemy->Initialise(Vector2D(x, y), vel, 0.5f, &theObjectManager, this);
+			//	theObjectManager.AddObject(pEnemy);
+			//}
+
+			if (a == 'p') //If p appears in the file create a player
+			{
+				pPlayerChar = new PlayerChar(); //Create new Player character
+				pPlayerChar->Initialise(Vector2D(x, y), &theObjectManager, this); //Initilise the starting position
+				theObjectManager.AddObject(pPlayerChar); //Add to object manager
+			}
+
+			if (a == 's') //If s appears in the file create a spike
+			{
+				Spikes* pSpikes = new Spikes();
+				pSpikes->Initialise(Vector2D(x, y), 1.0f, &theObjectManager, this);
+				theObjectManager.AddObject(pSpikes);
+			}
+
+			if (a == 'k')
+			{
+				Key* pKey = new Key();
+				pKey->Initialise(Vector2D(x, y), &theObjectManager, this);
+				theObjectManager.AddObject(pKey);
+			}
+		}
+
+		level3.close();
+	}
 }
 
 void GameManager::Render()
@@ -236,16 +327,28 @@ void GameManager::Render()
 	//----------------------------------------------------------------------------------------//
 	//----------------------------------------------------------------------------------------//
 
+	if (startLevelTimer < 0)
+	{
+		MyDrawEngine::GetInstance()->WriteText(1765, 350, L"Level number", MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteInt(1805, 380, levelNum, MyDrawEngine::GREEN);
+	}
+		
+
 	//Level 1 task
 	if (levelNum == 1)
 		MyDrawEngine::GetInstance()->WriteText(690, 100, L"Defeate all enemies, find the key, and reach the door before the timer runs out", MyDrawEngine::GREEN);
-	//Level 2 task
-	if (levelNum == 2)
+	//Level 2 & 3 task
+	if (levelNum == 2 || levelNum == 3)
 		MyDrawEngine::GetInstance()->WriteText(690, 100, L"Find the key and reach the door before the timer runs out", MyDrawEngine::GREEN);
 }
 
 void GameManager::Update(float frameTime)
 {
+	startLevelTimer += frameTime;
+
+	/*if (!pPlayerChar->IsReady() && startLevelTimer > 0)
+		pPlayerChar->StartPlay();*/
+
 	endLevelTimer = endLevelTimer - frameTime;
 
 	if (endLevelTimer < 0.0f)
@@ -260,7 +363,10 @@ void GameManager::Update(float frameTime)
 	if (levelProceed == 1) 
 	{
 		StartLevel(levelNum + 1);
-		playerLives = 3;
+		if(levelNum == 2)
+			playerLives = 3;
+		if (levelNum == 3)
+			playerLives = 5;
 	}
 	else if (levelProceed == 2)
 		StartLevel(levelNum);
@@ -291,23 +397,36 @@ void GameManager::Update(float frameTime)
 		}
 	}
 
+	//Run this code when level 3
+	if (levelNum == 3)
+	{
+		//Create door if key collected
+		if (keyCollected == true)
+		{
+			Door* pDoor = new Door();
+			pDoor->Initialise(Vector2D(0, -6100), &theObjectManager, this);
+			theObjectManager.AddObject(pDoor);
+			keyCollected = false;
+		}
+	}
+
 	if (playerLives < 1)
 	{
-		
+
 	}
 }
 
-//bool GameManager::CollidesGround(Vector2D pos)
-//{
-//	for (Terrain* pNext : pTerrainList)
-//	{
-//		if (pNext->GetShape().Intersects(Point2D(pos)))
-//		{
-//			return true;
-//		}
-//	}
-//	return false;
-//}
+bool GameManager::CollidesGround(Vector2D pos)
+{
+	for (Terrain* pNext : pTerrainList)
+	{
+		if (pNext->GetShape().Intersects(Point2D(pos)))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 //Decrease enemy lives when defeated
 void GameManager::EnemyDead()
@@ -339,7 +458,12 @@ void GameManager::StayAtLevel()
 	levelProceed = 2;
 }
 
-//void GameManager::ClearTerrainList()
-//{
-//	pTerrainList.clear();
-//}
+void GameManager::ClearTerrainList()
+{
+	pTerrainList.clear();
+}
+
+D3DCOLOR GameManager::BackgroundColour(D3DCOLOR colour)
+{
+	return colour;
+}

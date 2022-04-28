@@ -11,12 +11,13 @@ private:
 	int levelNum; //Variable for level number
 	int numEnemies; //Variable for number of enemies
 	float endLevelTimer; //Variable for end of level time
+	float startLevelTimer;
 	int playerLives; //Varable for number of player lives
 	int number;
 	bool keyCollected;
 	int levelProceed;
 
-	//std::list<Terrain*> pTerrainList;
+	std::list<Terrain*> pTerrainList;
 	PlayerChar* pPlayerChar;
 
 public:
@@ -30,7 +31,7 @@ public:
 	void Render();
 	void Update(float frameTime);
 
-	//bool CollidesGround(Vector2D pos);
+	bool CollidesGround(Vector2D pos);
 	void EnemyDead();
 	void PlayerDead();
 
@@ -41,6 +42,8 @@ public:
 	void ProceedLevel();
 	void StayAtLevel();
 
-	//void ClearTerrainList();
+	void ClearTerrainList();
+
+	D3DCOLOR BackgroundColour(D3DCOLOR colour);
 };
 
