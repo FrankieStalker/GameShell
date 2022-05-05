@@ -1,14 +1,11 @@
 #include "Spikes.h"
+
 #include "objectmanager.h"
 #include "GameManager.h"
 
-Spikes::Spikes()
-{
-}
+Spikes::Spikes(){}
 
-Spikes::~Spikes()
-{
-}
+Spikes::~Spikes(){}
 
 void Spikes::Initialise(Vector2D pos, float platSize, ObjectManager* pOM, GameManager* pGM)
 {
@@ -22,10 +19,7 @@ void Spikes::Initialise(Vector2D pos, float platSize, ObjectManager* pOM, GameMa
     loadImage(L"spikes.png");
 }
 
-void Spikes::Update(float frameTime)
-{
-    //MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
-}
+void Spikes::Update(float frameTime){}
 
 Vector2D Spikes::GetCollsionNormal(Circle2D other)
 {
@@ -38,6 +32,4 @@ IShape2D& Spikes::GetShape()
     return collisionShape;
 }
 
-void Spikes::ProcessCollision(GameObject& gameObject)
-{
-}
+void Spikes::ProcessCollision(GameObject& gameObject){}

@@ -28,7 +28,6 @@ void Enemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager*
 
 void Enemy::Update(float frameTime)
 {
-	//ScreenWrap();
 	Vector2D beneathMe;
 	if (direction == true)
 		beneathMe = position - Vector2D(-10, 75);

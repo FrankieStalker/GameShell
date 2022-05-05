@@ -1,5 +1,7 @@
 #include "bullet.h"
 #include "Enemy.h"
+#include "FlyingEnemy.h"
+#include "BossEnemey.h"
 
 Bullet::Bullet()
 {
@@ -9,20 +11,6 @@ Bullet::Bullet()
 Bullet::~Bullet()
 {
 
-}
-
-IShape2D& Bullet::GetShape()
-{
-	return collisionShape;
-}
-
-void Bullet::ProcessCollision(GameObject& gameObject)
-{
-	if (typeid(gameObject) == typeid(Enemy))
-	{
-		active = false;
-		Deactivate();
-	}
 }
 
 void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
@@ -50,4 +38,17 @@ void Bullet::Update(float frameTime)
 void Bullet::Shoot()
 {
 	loadSound(L"shoot.wav");
+}
+
+IShape2D& Bullet::GetShape()
+{
+	return collisionShape;
+}
+
+void Bullet::ProcessCollision(GameObject& gameObject)
+{
+	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy) || typeid(gameObject) == typeid(BossEnemy))
+	{
+		Deactivate();
+	}
 }

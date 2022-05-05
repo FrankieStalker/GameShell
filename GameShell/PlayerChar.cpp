@@ -6,6 +6,7 @@
 #include "rock.h"
 #include "Enemy.h"
 #include "FlyingEnemy.h"
+#include "BossEnemey.h"
 #include "bullet.h"
 
 #include "objectmanager.h"
@@ -62,42 +63,48 @@ void PlayerChar::Update(float frameTime)
 		currentImg = 0.0f;
 	}*/
 
-	//if (!ready) return;
+	if (position.YValue > cameraHeight + 500.0f)
+		cameraHeight = position.YValue - 500.0f;
+	if (position.YValue < cameraHeight - 500.0f)
+		cameraHeight = position.YValue + 500.0f;
+
+	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -cameraHeight));
+	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+
+	collisionShape.PlaceAt(position, 32);//Initial collision to aid when loading levels
+
+	if (!ready) return;
 	acceleration.set(0, 0);
-	//ScreenWrap();
 	//Pointer for inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
-	if (pInputs->KeyPressed(DIK_D))			//Key press D -> go Right
+	if (pInputs->KeyPressed(DIK_D))//Key press D -> go Right
 	{
-		acceleration += Vector2D(2000, 0); //Acceleration of player charater increase to the right
-		angle = 1.55f;
-		if (pInputs->KeyPressed(DIK_LSHIFT)) //Hold shift to run quicker
+		//Acceleration of player charater increase to the right
+		acceleration += Vector2D(2000, 0);
+		angle = 1.55;
+		if (pInputs->KeyPressed(DIK_LSHIFT))//Hold shift to run quicker
 		{
 			acceleration = Vector2D(4000, 0);
 		}
-		//acceleration.setBearing(angle, -accPower);
-		//velocity = velocity + acceleration * frameTime;
 	}
-	if (pInputs->KeyPressed(DIK_A))			//Key press A -> go Left
+	if (pInputs->KeyPressed(DIK_A))//Key press A -> go Left
 	{
-		acceleration += Vector2D(-2000, 0); //Acceleration of player charater increase to the left
+		acceleration += Vector2D(-2000, 0);//Acceleration of player charater increase to the left
 		angle = -1.55f;
-		if (pInputs->KeyPressed(DIK_LSHIFT)) //Hold shift to run quicker
+		if (pInputs->KeyPressed(DIK_LSHIFT))//Hold shift to run quicker
 		{
 			acceleration = Vector2D(-4000, 0);
 		}
-		//acceleration.setBearing(angle, -accPower);
-		//velocity = velocity + acceleration * frameTime;
 	}
-	if (pInputs->KeyPressed(DIK_SPACE) && isOnGround) //Key press space -> Jump
+	if (pInputs->KeyPressed(DIK_SPACE) && isOnGround)//Key press space -> Jump
 	{
 		velocity.YValue = JUMP_FORCE;
 		isOnGround = false;
 	}
 
-	if (pInputs->KeyPressed(DIK_E))
+	if (pInputs->KeyPressed(DIK_E))//Key press E -> shoot
 	{
 		if (shootDelay <= 0)
 		{
@@ -116,13 +123,13 @@ void PlayerChar::Update(float frameTime)
 		}
 	}
 
-	shootDelay = shootDelay - 0.5f * frameTime;
+	shootDelay = shootDelay - 1.0f * frameTime;
 
-	////Setting friction, velocity and position
+	//Setting friction, velocity and position
 	acceleration = acceleration + GRAVITY;
 	//friction = frictionPower * velocity * frameTime;
 	velocity = velocity + acceleration * frameTime;
-	velocity = velocity - velocity * FRICTION * frameTime; //Cannot multiply by friction???
+	velocity = velocity - velocity * FRICTION * frameTime;
 	position = position + velocity * frameTime;
 
 	MyDrawEngine::GetInstance()->WriteInt(500, 500, position.XValue, MyDrawEngine::GREEN);
@@ -133,17 +140,9 @@ void PlayerChar::Update(float frameTime)
 	if (isOnGround == false)
 		MyDrawEngine::GetInstance()->WriteText(400, 400, L"false", MyDrawEngine::GREEN);
 
-	collisionShape.PlaceAt(position, 32);
-
-	if (position.YValue > cameraHeight + 500.0f)
-		cameraHeight = position.YValue - 500.0f;
-	if (position.YValue < cameraHeight - 500.0f)
-		cameraHeight = position.YValue + 500.0f;
-
-	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -cameraHeight));
-	//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
-
 	isOnGround = false;
+
+	collisionShape.PlaceAt(position, 32);//Collision needed to be delcared again, if not issues with collision occur
 }
 
 void PlayerChar::StartPlay()
@@ -169,8 +168,8 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		// ****************************************************************************************
 		// Allows player to walk on flat surfaces *************************************************
 		// ****************************************************************************************
-
 		Vector2D normal = dynamic_cast <Terrain*>(&gameObject)->GetCollsionNormal(collisionShape); // Gets the vector that points away from the object
+		
 		if (normal.YValue > 0.8f) //If vector is mostly pointing upwards
 		{
 			isOnGround = true;
@@ -205,7 +204,7 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		if (edge == 3 && !isOnGround) //Left
 		{
 			isOnGround = false;
-			if (velocity.XValue > 5.0f)
+			if (velocity.XValue > 25.0f)
 			{
 				position.XValue = gameObject.getPos().XValue - (64 + Terrain::WIDTH) / 2;
 			}
@@ -233,10 +232,10 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		Vector2D normal = dynamic_cast <VerticalTerrain*>(&gameObject)->GetCollsionNormal(collisionShape); // Gets the vector that points away from the object
 		if (normal.XValue < 0.8f) //If vector is mostly pointing sideways
 		{
-			isOnGround = true;
+			isOnGround = false;
 		}
 		else {
-			isOnGround = false;
+			isOnGround = true;
 		}
 		velocity = velocity - 2 * (velocity * normal) * normal * 0.5f; //Move away from object
 		position = position + dynamic_cast <VerticalTerrain*>(&gameObject)->GetCollsionNormal(collisionShape) * 1; //Move away from object
@@ -258,7 +257,7 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		if (edge == 4 && !isOnGround || edge == 4 && isOnGround) //Right
 		{
 			isOnGround = false;
-			if (velocity.XValue < -25.0f)
+			if (velocity.XValue < -5.0f)
 			{
 				position.XValue = gameObject.getPos().XValue + (64 + VerticalTerrain::VERTWIDTH) / 2;
 			}
@@ -269,6 +268,7 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		}
 	}
 
+	//If player collides with spikes player dies
 	if (typeid(gameObject) == typeid(Spikes))
 	{
 		Deactivate();
@@ -276,8 +276,8 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		pGameManager->StayAtLevel();
 	}
 
-	//if enemy collides 
-	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy))
+	//If player collides with enemy player dies
+	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy) || typeid(gameObject) == typeid(BossEnemy))
 	{
 		Deactivate();
 		pGameManager->PlayerDead();

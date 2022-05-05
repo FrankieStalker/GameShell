@@ -12,13 +12,13 @@ FlyingEnemy::~FlyingEnemy()
 {
 }
 
-void FlyingEnemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager* pOM, GameManager* pGM)
+void FlyingEnemy::Initialise(Vector2D pos, Vector2D vel, float newSize, float newAngle, ObjectManager* pOM, GameManager* pGM)
 {
 	position = pos;
 	velocity = vel;
 	size = newSize;
 
-	angle = 1.55f;
+	angle = newAngle;
 
 	pObjectManager = pOM;
 	pGameManager = pGM;
@@ -45,6 +45,19 @@ void FlyingEnemy::ProcessCollision(GameObject& gameObject)
 	if (typeid(gameObject) == typeid(Rock))
 	{
 		int edge = dynamic_cast <GameObject*>(&gameObject)->GetEdge(position); //Worked out address of game object and cast that to Terrain pointer, call get edge function taking the position of the player as a parameter
+
+		if (edge == 1) //Top
+		{
+			position.YValue = gameObject.getPos().YValue + (64 + Terrain::WIDTH) / 2;
+			velocity.YValue = -velocity.YValue;
+			angle = 0.0f;
+		}
+		if (edge == 2) //Bottom
+		{
+			position.YValue = gameObject.getPos().YValue - (64 + Terrain::WIDTH) / 2;
+			velocity.YValue = -velocity.YValue;
+			angle = 3.14f;
+		}
 
 		if (edge == 3) //Left
 		{

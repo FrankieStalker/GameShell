@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BossEnemey.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="Door.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="VerticalTerrain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossEnemey.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="Door.cpp" />

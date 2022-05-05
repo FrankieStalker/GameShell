@@ -281,7 +281,8 @@ ErrorType Game::StartOfGame()
 
 	srand(time(0)); // Set random number
 
-	theGameManager.StartLevel(1);
+	theGameManager.SetPlayerLives();
+	theGameManager.StartLevel(4);
 
 	gt.mark();
 	gt.mark();
@@ -321,6 +322,8 @@ ErrorType Game::Update()
 	theGameManager.Render();
 
 	gt.mark();
+	
+	MyDrawEngine::GetInstance()->WriteDouble(10, 120, gt.mdFrameTime, MyDrawEngine::GREEN);
 
 	// *********************************************************************
 	// *********************************************************************

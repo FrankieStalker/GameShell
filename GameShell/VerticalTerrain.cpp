@@ -1,4 +1,5 @@
 #include "VerticalTerrain.h"
+#include "BossEnemey.h"
 
 VerticalTerrain::VerticalTerrain()
 {
@@ -38,4 +39,11 @@ IShape2D& VerticalTerrain::GetShape()
 
 void VerticalTerrain::ProcessCollision(GameObject& gameObject)
 {
+	if (typeid(gameObject) == typeid(BossEnemy))
+	{
+		int edge = dynamic_cast <GameObject*>(&gameObject)->GetEdge(position); //Worked out address of game object and cast that to GameObject pointer, call get edge function taking the position of the object as a parameter
+
+		if (edge == 1 || edge == 2 || edge == 3 || edge == 4)
+			Deactivate();
+	}
 }

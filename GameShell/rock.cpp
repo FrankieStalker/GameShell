@@ -39,7 +39,7 @@ void Rock::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 
 void Rock::Update(float frameTime)
 {
-	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
+	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 	collisionShape.PlaceAt(position.YValue + HEIGHT, position.XValue - WIDTH / 2, position.YValue - HEIGHT, position.XValue + WIDTH / 2);
 }
 

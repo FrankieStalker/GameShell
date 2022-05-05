@@ -8,7 +8,7 @@ class GameManager;
 class Key : public GameObject
 {
 private:
-	Rectangle2D collisionShape;
+	Circle2D collisionShape;
 
 	ObjectManager* pObjectManager;
 

@@ -25,8 +25,8 @@ void Key::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 
 void Key::Update(float frameTime)
 {
-	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
-	collisionShape.PlaceAt(position.YValue + HEIGHT, position.XValue - WIDTH / 2, position.YValue - HEIGHT, position.XValue + WIDTH / 2);
+	//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+	collisionShape.PlaceAt(position, 24);
 }
 
 IShape2D& Key::GetShape()
