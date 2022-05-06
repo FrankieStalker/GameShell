@@ -33,9 +33,11 @@ void ObjectManager::UpdateAll(float frameTime)
 
 void ObjectManager::RenderAll()
 {
-	MyDrawEngine::GetInstance()->WriteText(50, 50, L"No. of Objects", MyDrawEngine::GREEN);
-	MyDrawEngine::GetInstance()->WriteInt(95, 80, pObjectList.size(), MyDrawEngine::GREEN);
-
+#if _DEBUG
+		MyDrawEngine::GetInstance()->WriteText(1700, 190, L"No. of Objects", MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteInt(1700, 220, pObjectList.size(), MyDrawEngine::GREEN);
+#endif
+	
 	//Loop through each object in the list
 	for (GameObject* pNext : pObjectList)
 	{

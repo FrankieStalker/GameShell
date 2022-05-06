@@ -1,3 +1,5 @@
+
+
 #include "PlayerChar.h"
 #include "myinputs.h"
 #include "Terrain.h"
@@ -57,39 +59,64 @@ void PlayerChar::Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* p
 
 void PlayerChar::Update(float frameTime)
 {
-	/*currentImg = currentImg + 0.01f;
-	if (currentImg >= 1)
-	{
-		currentImg = 0.0f;
-	}*/
+	//----------------------------------------------------------------------------------------//
+	//------------------------------------Debug Code------------------------------------------//
+	//----------------------------------------------------------------------------------------//
 
-	if (position.YValue > cameraHeight + 500.0f)
+#if _DEBUG
+		MyDrawEngine::GetInstance()->WriteText(1700, 310, L"Player X pos", MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteInt(1700, 340, position.XValue, MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteText(1700, 370, L"Player Y pos", MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteInt(1700, 400, position.YValue, MyDrawEngine::GREEN);
+
+		MyDrawEngine::GetInstance()->WriteText(1700, 430, L"On Ground?", MyDrawEngine::GREEN);
+		if (isOnGround == true)
+			MyDrawEngine::GetInstance()->WriteText(1700, 460, L"true", MyDrawEngine::GREEN);
+		if (isOnGround == false)
+			MyDrawEngine::GetInstance()->WriteText(1700, 460, L"false", MyDrawEngine::GREEN);
+#endif
+
+	//----------------------------------------------------------------------------------------//
+	//----------------------------------------------------------------------------------------//
+	//----------------------------------------------------------------------------------------//
+
+	//Pointer for inputs
+	MyInputs* pInputs = MyInputs::GetInstance();
+	pInputs->SampleKeyboard();
+
+	/*if (position.YValue > cameraHeight + 500.0f)
 		cameraHeight = position.YValue - 500.0f;
 	if (position.YValue < cameraHeight - 500.0f)
-		cameraHeight = position.YValue + 500.0f;
+		cameraHeight = position.YValue + 500.0f;*/
 
-	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -cameraHeight));
+	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -position.YValue));
 	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
 
 	collisionShape.PlaceAt(position, 32);//Initial collision to aid when loading levels
 
 	if (!ready) return;
+	if (pGameManager->GetLevelState() == LevelState::SUCCESS)
+	{
+		levelCompleteJumpTimer -= frameTime;
+		if (levelCompleteJumpTimer < 0)
+		{
+			velocity.YValue = JUMP_FORCE;
+			levelCompleteJumpTimer = 1;
+		}
+	}
 	acceleration.set(0, 0);
-	//Pointer for inputs
-	MyInputs* pInputs = MyInputs::GetInstance();
-	pInputs->SampleKeyboard();
 
-	if (pInputs->KeyPressed(DIK_D))//Key press D -> go Right
+	if (pInputs->KeyPressed(DIK_D) && pGameManager->GetLevelState() != LevelState::SUCCESS)//Key press D -> go Right
 	{
 		//Acceleration of player charater increase to the right
 		acceleration += Vector2D(2000, 0);
 		angle = 1.55;
-		if (pInputs->KeyPressed(DIK_LSHIFT))//Hold shift to run quicker
+		if (pInputs->KeyPressed(DIK_LSHIFT) && pGameManager->GetLevelState() != LevelState::SUCCESS)//Hold shift to run quicker
 		{
 			acceleration = Vector2D(4000, 0);
 		}
 	}
-	if (pInputs->KeyPressed(DIK_A))//Key press A -> go Left
+	if (pInputs->KeyPressed(DIK_A) && pGameManager->GetLevelState() != LevelState::SUCCESS)//Key press A -> go Left
 	{
 		acceleration += Vector2D(-2000, 0);//Acceleration of player charater increase to the left
 		angle = -1.55f;
@@ -98,13 +125,13 @@ void PlayerChar::Update(float frameTime)
 			acceleration = Vector2D(-4000, 0);
 		}
 	}
-	if (pInputs->KeyPressed(DIK_SPACE) && isOnGround)//Key press space -> Jump
+	if (pInputs->KeyPressed(DIK_SPACE) && isOnGround && pGameManager->GetLevelState() != LevelState::SUCCESS)//Key press space -> Jump
 	{
 		velocity.YValue = JUMP_FORCE;
 		isOnGround = false;
 	}
 
-	if (pInputs->KeyPressed(DIK_E))//Key press E -> shoot
+	if (pInputs->KeyPressed(DIK_E) && pGameManager->GetLevelState() != LevelState::SUCCESS)//Key press E -> shoot
 	{
 		if (shootDelay <= 0)
 		{
@@ -132,13 +159,7 @@ void PlayerChar::Update(float frameTime)
 	velocity = velocity - velocity * FRICTION * frameTime;
 	position = position + velocity * frameTime;
 
-	MyDrawEngine::GetInstance()->WriteInt(500, 500, position.XValue, MyDrawEngine::GREEN);
-	MyDrawEngine::GetInstance()->WriteInt(500, 600, position.YValue, MyDrawEngine::GREEN);
-
-	if (isOnGround == true)
-		MyDrawEngine::GetInstance()->WriteText(400, 400, L"true", MyDrawEngine::GREEN);
-	if (isOnGround == false)
-		MyDrawEngine::GetInstance()->WriteText(400, 400, L"false", MyDrawEngine::GREEN);
+	
 
 	isOnGround = false;
 

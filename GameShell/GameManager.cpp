@@ -1,5 +1,7 @@
+
 #include <fstream>
 
+#include "gamecode.h"
 #include "GameManager.h"
 #include "Terrain.h"
 #include "VerticalTerrain.h"
@@ -22,7 +24,8 @@ GameManager::~GameManager(){}
 void GameManager::StartLevel(int level)
 {
     levelNum = level;
-	startLevelTimer = -5.0f;
+	startLevelTimer = -2.0f;
+	successTimer = 5.0f;
 	std::ifstream levelName;
 	number = rand() % 4; //Random number for key location
 	
@@ -33,11 +36,11 @@ void GameManager::StartLevel(int level)
 		theObjectManager.DeleteAllObjects();
 		ClearTerrainList();
 
-		numEnemies = 1;
+		numEnemies = 10;
 
-		levelProceed = 3;
+		levelState = LevelState::CURRENT;
 		keyCollected = false;
-		endLevelTimer = 101.0f;
+		endLevelTimer = 100.0f;
 
 		levelName.open("level1.txt");
 
@@ -82,9 +85,9 @@ void GameManager::StartLevel(int level)
 		theObjectManager.DeleteAllObjects();
 		ClearTerrainList();
 
-		levelProceed = 3;
+		levelState = LevelState::CURRENT;
 		keyCollected = false;
-		endLevelTimer = 26.0f;
+		endLevelTimer = 25.0f;
 
 		levelName.open("level2.txt");
 
@@ -127,9 +130,9 @@ void GameManager::StartLevel(int level)
 		theObjectManager.DeleteAllObjects();
 		ClearTerrainList();
 
-		levelProceed = 3;
+		levelState = LevelState::CURRENT;
 		keyCollected = false;
-		endLevelTimer = 51.0f;
+		endLevelTimer = 50.0f;
 
 		levelName.open("level3.txt");
 	}
@@ -139,7 +142,7 @@ void GameManager::StartLevel(int level)
 		theObjectManager.DeleteAllObjects();
 		ClearTerrainList();
 
-		levelProceed = 3;
+		levelState = LevelState::CURRENT;
 
 		levelName.open("level4.txt");
 	}
@@ -203,9 +206,16 @@ void GameManager::StartLevel(int level)
 		if (a == 'o') //If o appears in the file create the boss enemy
 		{
 			pBossEnemy = new BossEnemy();
-			Vector2D vel(400, 0);
+			Vector2D vel(300, 0);
 			pBossEnemy->Initialise(Vector2D(x, y), vel, &theObjectManager, this);
 			theObjectManager.AddObject(pBossEnemy);
+		}
+
+		if (a == 'd')
+		{
+			Door* pDoor = new Door();
+			pDoor->Initialise(Vector2D(x, y), &theObjectManager, this);
+			theObjectManager.AddObject(pDoor);
 		}
 
 		if (a == 'p') //If p appears in the file create a player
@@ -240,55 +250,60 @@ void GameManager::Render()
 	//------------------------------------Debug Code------------------------------------------//
 	//----------------------------------------------------------------------------------------//
 
-	if (levelNum > 0 && levelNum != 4)
-	{
-		MyDrawEngine::GetInstance()->WriteText(1765, 50, L"Game Time", MyDrawEngine::GREEN);
-		MyDrawEngine::GetInstance()->WriteInt(1805, 80, endLevelTimer, MyDrawEngine::GREEN);
-
-		MyDrawEngine::GetInstance()->WriteText(1765, 150, L"Player Lives", MyDrawEngine::GREEN);
-		MyDrawEngine::GetInstance()->WriteInt(1805, 180, playerLives, MyDrawEngine::GREEN);
-
-		if (levelNum == 1)
-		{
-			MyDrawEngine::GetInstance()->WriteText(1765, 250, L"No. of Enemies", MyDrawEngine::GREEN);
-			MyDrawEngine::GetInstance()->WriteInt(1805, 280, numEnemies, MyDrawEngine::GREEN);
-		}
-
+#if _DEBUG
+		MyDrawEngine::GetInstance()->WriteText(1700, 250, L"Key Collected?", MyDrawEngine::GREEN);
 		if (keyCollected == true)
-			MyDrawEngine::GetInstance()->WriteText(800, 800, L"true", MyDrawEngine::GREEN);
+			MyDrawEngine::GetInstance()->WriteText(1700, 280, L"true", MyDrawEngine::GREEN);
 		if (keyCollected == false)
-			MyDrawEngine::GetInstance()->WriteText(800, 800, L"false", MyDrawEngine::GREEN);
+			MyDrawEngine::GetInstance()->WriteText(1700, 280, L"false", MyDrawEngine::GREEN);
+#endif
 
-		if (startLevelTimer < 0)
+	//----------------------------------------------------------------------------------------//
+	//----------------------------------------------------------------------------------------//
+	//----------------------------------------------------------------------------------------//
+
+	if (playerLives > 0 && levelState != LevelState::SUCCESS)
+	{
+		MyDrawEngine::GetInstance()->WriteText(50, 450, L"Player Lives:", MyDrawEngine::CYAN, 2);
+		MyDrawEngine::GetInstance()->WriteInt(50, 480, playerLives, MyDrawEngine::CYAN, 2);
+
+		if (levelNum > 0 && levelNum != 4 && playerLives > 0)
 		{
-			MyDrawEngine::GetInstance()->WriteText(1765, 350, L"Level number", MyDrawEngine::GREEN);
-			MyDrawEngine::GetInstance()->WriteInt(1805, 380, levelNum, MyDrawEngine::GREEN);
+			MyDrawEngine::GetInstance()->WriteText(50, 250, L"Game Time:", MyDrawEngine::CYAN, 2);
+			MyDrawEngine::GetInstance()->WriteInt(50, 280, endLevelTimer, MyDrawEngine::CYAN, 2);
+
+			if (levelNum == 1)
+			{
+				MyDrawEngine::GetInstance()->WriteText(50, 350, L"No. of Enemies:", MyDrawEngine::CYAN, 2);
+				MyDrawEngine::GetInstance()->WriteInt(50, 380, numEnemies, MyDrawEngine::CYAN, 2);
+			}
 		}
 	}
 	
-
-	
-
-	//----------------------------------------------------------------------------------------//
-	//----------------------------------------------------------------------------------------//
-	//----------------------------------------------------------------------------------------//
-		
-
-	//Level 1 task
-	if (levelNum == 1)
-		MyDrawEngine::GetInstance()->WriteText(690, 100, L"Defeate all enemies, find the key, and reach the door before the timer runs out", MyDrawEngine::GREEN);
-		
-	//Level 2 & 3 task
-	if (levelNum == 2 || levelNum == 3)
-		MyDrawEngine::GetInstance()->WriteText(690, 100, L"Find the key and reach the door before the timer runs out", MyDrawEngine::GREEN);
-
-	if(levelNum == 4)
+	if (startLevelTimer < 0)
 	{
-		MyDrawEngine::GetInstance()->WriteText(690, 100, L"OVERLORD INCOMMING, FIGHT TO SURVIVE", MyDrawEngine::GREEN);
-		MyDrawEngine::GetInstance()->WriteText(1765, 250, L"Boss Health", MyDrawEngine::GREEN);
-		MyDrawEngine::GetInstance()->WriteInt(1800, 280, pBossEnemy->GetHealth(), MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteText(885, 350, L"Level number", MyDrawEngine::CYAN, 2);
+		MyDrawEngine::GetInstance()->WriteInt(950, 380, levelNum, MyDrawEngine::CYAN, 2);
 	}
-		
+
+	if (levelState == LevelState::CURRENT)
+	{
+		//Level 1 task
+		if (levelNum == 1)
+			MyDrawEngine::GetInstance()->WriteText(140, 100, L"Defeate all enemies, find the key, and reach the door before the \n                         timer runs out", MyDrawEngine::CYAN, 3);
+
+		//Level 2 & 3 task
+		if (levelNum == 2 || levelNum == 3)
+			MyDrawEngine::GetInstance()->WriteText(230, 100, L"Find the key and reach the door before the timer runs out", MyDrawEngine::CYAN, 3);
+
+		//Level 4 task
+		if (levelNum == 4)
+		{
+			MyDrawEngine::GetInstance()->WriteText(500, 100, L"OVERLORD INCOMMING, FIGHT TO SURVIVE", MyDrawEngine::CYAN, 3);
+			MyDrawEngine::GetInstance()->WriteText(50, 350, L"Boss Health", MyDrawEngine::CYAN, 2);
+			MyDrawEngine::GetInstance()->WriteInt(50, 380, pBossEnemy->GetHealth(), MyDrawEngine::CYAN, 2);
+		}
+	}
 }
 
 void GameManager::Update(float frameTime)
@@ -300,75 +315,53 @@ void GameManager::Update(float frameTime)
 		pPlayerChar->StartPlay();
 	}
 	
-	endLevelTimer = endLevelTimer - frameTime;
+	if(levelState != LevelState::SUCCESS && startLevelTimer >= 0)
+		endLevelTimer = endLevelTimer - frameTime;
 
-	if (endLevelTimer < 0.0f && levelNum != 4)
+	//If levelState is == SUCCESS (AKA True) player has completed level
+	//If levelState is == FAILURE (AKA False) player has not completed level
+	//When level is started levelState is set to CURRENT to avoid level recursion
+	if (levelState == LevelState::SUCCESS)
 	{
+		successTimer -= frameTime;
+		if (levelNum == 4)
+		{
+			MyDrawEngine::GetInstance()->WriteText(50, 600, L"You defeated the overlord! you are a true hero, returining to main menu", MyDrawEngine::CYAN, 3);
+			if (successTimer <= 0)
+			{
+				Game::instance.EndTheGame();
+			}
+		}
+		else 
+		{
+			MyDrawEngine::GetInstance()->WriteText(100, 600, L"Congratulations, completed the level, starting next level, buckle up!", MyDrawEngine::CYAN, 3);
+			if (successTimer <= 0)
+			{
+				StartLevel(levelNum + 1);
+				if (levelNum == 2)
+					playerLives = 3;
+
+				if (levelNum == 3 || levelNum == 4)
+					playerLives = 5;
+			}
+		}
+	}
+	else if (levelState == LevelState::FAILURE && playerLives > 0 || endLevelTimer < 0.0f && levelNum != 4)
 		StartLevel(levelNum);
-		PlayerDead();
-	}
+		
 
-	//If level proceed is == 1 (AKA True) player has completed level
-	//If level proceed is == 2 (AKA False) player has not completed level
-	//When level is started level proceed is set to 3 to avoid level recursion
-	if (levelProceed == 1) 
+	//If player dies
+	if (playerLives < 1)
 	{
-
-		StartLevel(levelNum + 1);
-		if (levelNum == 2)
-			playerLives = 3;
-			
-		if (levelNum == 3 || levelNum == 4)
-			playerLives = 5;
-	}
-	else if (levelProceed == 2)
-		StartLevel(levelNum);
-
-	//Run this code when level 1
-	if (levelNum == 1)
-	{
-		//Create door if key collected and enemies killed
-		if (numEnemies < 1 && keyCollected == true)
-		{
-			Door* pDoor = new Door();
-			pDoor->Initialise(Vector2D(0, -5900), &theObjectManager, this);
-			theObjectManager.AddObject(pDoor);
-			keyCollected = false;
-		}
-	}
-
-	//Run this code when level 2
-	if (levelNum == 2)
-	{
-		//Create door if key collected
-		if (keyCollected == true)
-		{
-			Door* pDoor = new Door();
-			pDoor->Initialise(Vector2D(-500, -5200), &theObjectManager, this);
-			theObjectManager.AddObject(pDoor);
-			keyCollected = false;
-		}
-	}
-
-	//Run this code when level 3
-	if (levelNum == 3)
-	{
-		//Create door if key collected
-		if (keyCollected == true)
-		{
-			Door* pDoor = new Door();
-			pDoor->Initialise(Vector2D(0, -6100), &theObjectManager, this);
-			theObjectManager.AddObject(pDoor);
-			keyCollected = false;
-		}
-	}
-
-	/*if (playerLives < 1)
-	{
-		levelNum = 0;
 		theObjectManager.DeleteAllObjects();
-		MyDrawEngine::GetInstance()->WriteText(780, 500, L"Player ran out of lives, Game Over, returning to main menu", MyDrawEngine::GREEN);
-	}*/
+		levelState = LevelState::FAILURE;
+		successTimer = successTimer - frameTime;
+		MyDrawEngine::GetInstance()->WriteText(250, 600, L"Player ran out of lives, Game Over, returning to main menu", MyDrawEngine::CYAN, 3);
+		if (successTimer <= 0)
+		{
+			Game::instance.EndTheGame();
+		}
+	}
 }
 
 bool GameManager::CollidesGround(Vector2D pos)
@@ -401,16 +394,34 @@ void GameManager::KeyIsCollected()
 	keyCollected = true;
 }
 
-//Sets proceed level to 1 to allow the level number to increase
-void GameManager::ProceedLevel()
+bool GameManager::GetKeyCollected()
 {
-	levelProceed = 1;
+	return keyCollected;
 }
 
-//Sets proceed level to 2 to stay at the same level
+//Sets proceed level to SUCCESS to allow the level number to increase if criteria is met
+void GameManager::ProceedLevel()
+{
+	if (levelNum == 1 && numEnemies > 0)
+	{
+		levelState = LevelState::CURRENT;
+	}
+	else if (levelState != LevelState::SUCCESS)
+	{
+		levelState = LevelState::SUCCESS;
+		successTimer = 5.0f;
+	}
+}
+
+//Sets proceed level to FAILURE to stay at the same level
 void GameManager::StayAtLevel()
 {
-	levelProceed = 2;
+	levelState = LevelState::FAILURE;
+}
+
+LevelState GameManager::GetLevelState()
+{
+	return levelState;
 }
 
 void GameManager::ClearTerrainList()
@@ -418,17 +429,9 @@ void GameManager::ClearTerrainList()
 	pTerrainList.clear();
 }
 
-void GameManager::ClearInactiveTerrain()
+void GameManager::RemoveTerrain(Terrain* pT)
 {
-	for (Terrain*& pNext : pTerrainList)
-	{
-		if (!pNext->IsActive())
-		{
-			delete pNext;
-			pNext = nullptr;
-		}
-	}
-	pTerrainList.remove(nullptr);
+	pTerrainList.remove(pT);
 }
 
 void GameManager::SetPlayerLives()
@@ -443,3 +446,5 @@ D3DCOLOR GameManager::BackgroundColour(D3DCOLOR colour)
 {
 	return colour;
 }
+
+

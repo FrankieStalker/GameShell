@@ -20,13 +20,13 @@ void Door::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 
 	active = true;
 
-	loadImage(L"boss1.bmp");
+	loadImage(L"DoorSprite.png");
 }
 
 void Door::Update(float frameTime)
 {
 	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
-	collisionShape.PlaceAt(position.YValue + HEIGHT, position.XValue - WIDTH / 2, position.YValue - HEIGHT, position.XValue + WIDTH / 2);
+	collisionShape.PlaceAt(position.YValue + DOORHEIGHT / 2, position.XValue - DOORWIDTH / 2, position.YValue - DOORHEIGHT / 2, position.XValue + DOORWIDTH / 2);
 }
 
 IShape2D& Door::GetShape()
@@ -37,9 +37,9 @@ IShape2D& Door::GetShape()
 
 void Door::ProcessCollision(GameObject& gameObject)
 {
-	if (typeid(gameObject) == typeid(PlayerChar))
+	if (typeid(gameObject) == typeid(PlayerChar) && pGameManager->GetKeyCollected() == true)
 	{
-		pGameManager->KeyIsCollected();
+		//pGameManager->KeyIsCollected();
 		pGameManager->ProceedLevel();
 	}
 }

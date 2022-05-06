@@ -1,6 +1,5 @@
 ﻿// GameCode.cpp		
 
-
 #include "gamecode.h"
 #include "mydrawengine.h"
 #include "mysoundengine.h"
@@ -150,7 +149,7 @@ ErrorType Game::PauseMenu()
 {
 	// Code for a basic pause menu
 
-	MyDrawEngine::GetInstance()->WriteText(450, 220, L"Paused", MyDrawEngine::WHITE);
+	MyDrawEngine::GetInstance()->WriteText(450, 300, L"Paused", MyDrawEngine::CYAN, 1);
 
 	const int NUMOPTIONS = 2;
 	wchar_t options[NUMOPTIONS][11] = { L"Resume", L"Main menu" };
@@ -161,9 +160,9 @@ ErrorType Game::PauseMenu()
 		int colour = MyDrawEngine::GREY;       // If not selected, should be grey
 		if (i == m_menuOption)
 		{
-			colour = MyDrawEngine::WHITE;       // Current selection is white
+			colour = MyDrawEngine::CYAN;       // Current selection is cyan
 		}
-		MyDrawEngine::GetInstance()->WriteText(450, 300 + 50 * i, options[i], colour);
+		MyDrawEngine::GetInstance()->WriteText(750 + 300 * i, 800, options[i], colour, 2);
 	}
 
 	MyInputs* pInputs = MyInputs::GetInstance();
@@ -172,11 +171,11 @@ ErrorType Game::PauseMenu()
 	pInputs->SampleKeyboard();
 
 	// Move choice up and down
-	if (pInputs->NewKeyPressed(DIK_UP))
+	if (pInputs->NewKeyPressed(DIK_LEFT))
 	{
 		m_menuOption--;
 	}
-	if (pInputs->NewKeyPressed(DIK_DOWN))
+	if (pInputs->NewKeyPressed(DIK_RIGHT))
 	{
 		m_menuOption++;
 	}
@@ -203,7 +202,6 @@ ErrorType Game::PauseMenu()
 		}
 
 	}
-
 	return SUCCESS;
 }
 
@@ -211,7 +209,12 @@ ErrorType Game::PauseMenu()
 // which is currently a basic placeholder
 ErrorType Game::MainMenu()
 {
-	MyDrawEngine::GetInstance()->WriteText(450, 220, L"Main menu", MyDrawEngine::WHITE);
+	//Loading same font in different sizes
+	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 400, false, false);
+	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 30, false, false);
+	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 60, false, false);
+
+	MyDrawEngine::GetInstance()->WriteText(200, 300, L"Ball Hero", MyDrawEngine::CYAN, 1);
 
 	const int NUMOPTIONS = 2;
 	wchar_t options[NUMOPTIONS][15] = { L"Start game", L"Exit" };
@@ -222,9 +225,9 @@ ErrorType Game::MainMenu()
 		int colour = MyDrawEngine::GREY;
 		if (i == m_menuOption)
 		{
-			colour = MyDrawEngine::WHITE;
+			colour = MyDrawEngine::CYAN;
 		}
-		MyDrawEngine::GetInstance()->WriteText(450, 300 + 50 * i, options[i], colour);
+		MyDrawEngine::GetInstance()->WriteText(200, 800 + 50 * i, options[i], colour, 2);
 	}
 
 	// Get keyboard input
@@ -281,8 +284,10 @@ ErrorType Game::StartOfGame()
 
 	srand(time(0)); // Set random number
 
+	endOfGame = false; //Sets end of game to false
+
 	theGameManager.SetPlayerLives();
-	theGameManager.StartLevel(4);
+	theGameManager.StartLevel(3);
 
 	gt.mark();
 	gt.mark();
@@ -314,17 +319,24 @@ ErrorType Game::Update()
 	// *********************************************************************
 
 	//Object manager render, update, check collsions and delete inactive for all objects
+	//Game manager update and render
 	theGameManager.theObjectManager.UpdateAll(frameTime);
 	theGameManager.theObjectManager.RenderAll();
 	theGameManager.theObjectManager.CheckAllCollision();
 	theGameManager.theObjectManager.DeleteInactiveObjects();
 	theGameManager.Update(frameTime);
 	theGameManager.Render();
+	if (endOfGame == true) //When end of game is true, end the game and return to menu
+	{
+		EndOfGame();
+		ChangeState(GameState::MENU);
+	}
 
 	gt.mark();
 	
-	MyDrawEngine::GetInstance()->WriteDouble(10, 120, gt.mdFrameTime, MyDrawEngine::GREEN);
-
+#if _DEBUG
+		MyDrawEngine::GetInstance()->WriteDouble(10, 10, gt.mdFrameTime, MyDrawEngine::GREEN);
+#endif
 	// *********************************************************************
 	// *********************************************************************
 
@@ -346,6 +358,13 @@ ErrorType Game::EndOfGame()
 	theGameManager.ClearTerrainList();
 
 	return SUCCESS;
+}
+
+//Setter for endOfGame variable
+//Seting it to false
+void Game::EndTheGame()
+{
+	endOfGame = true;
 }
 
 //⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣴⣆⣠⣤⠀⠀⠀⠀⠀⠀⠀

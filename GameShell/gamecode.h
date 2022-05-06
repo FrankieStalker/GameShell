@@ -36,9 +36,9 @@ private:
 	GameTimer gt;
 
 	float frameTime = 0.016f; //Frame time for 60s
-
-	//Creating GameManager object
-	GameManager theGameManager;
+	bool endOfGame;
+	
+	GameManager theGameManager; //Creating GameManager object
 
 public:
 	Game();                        // Constructor
@@ -91,4 +91,6 @@ public:
 	// but could be done by the gameplay programmer in other situations
 	// This will be used by the gameplay programmer to clean up
 	ErrorType EndOfGame();
+
+	void EndTheGame();
 };

@@ -50,8 +50,8 @@ void Terrain::ProcessCollision(GameObject& gameObject)
 
 		if (edge == 1 || edge == 2 || edge == 3 || edge == 4)
 		{
-			pGameManager->ClearInactiveTerrain();
 			Deactivate();
+			pGameManager->RemoveTerrain(this);
 		}
 			
 	}

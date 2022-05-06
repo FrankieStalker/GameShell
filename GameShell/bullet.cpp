@@ -18,7 +18,7 @@ void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
 	position = bulletPos;
 	velocity = bulletVel;
 	active = true;
-	loadImage(L"bullet.bmp");
+	loadImage(L"BulletPic.png");
 }
 
 void Bullet::Update(float frameTime)

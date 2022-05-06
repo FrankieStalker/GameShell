@@ -19,7 +19,7 @@ void BossEnemy::Initialise(Vector2D pos, Vector2D vel, ObjectManager* pOM, GameM
 	pObjectManager = pOM;
 	pGameManager = pGM;
 	active = true;
-	health = 50;
+	health = 1;
 
 	loadImage(L"BossEnemyIcon.png");
 }
@@ -50,6 +50,7 @@ void BossEnemy::ProcessCollision(GameObject& gameObject)
 		if (health <= 0)
 		{
 			Deactivate();
+			pGameManager->ProceedLevel();
 		}
 	}
 }

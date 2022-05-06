@@ -22,4 +22,7 @@ public:
 
 	IShape2D& GetShape(); //Get door shape
 	void ProcessCollision(GameObject& gameObject); //Process door collision
+
+	static const int DOORWIDTH = 138;
+	static const int DOORHEIGHT = 186;
 };

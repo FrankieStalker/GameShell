@@ -19,6 +19,7 @@ private:
 	float cameraWidth;
 
 	float shootDelay = 0.0f; //Delay on the shot
+	float levelCompleteJumpTimer;
 
 	bool isOnGround;
 	const float JUMP_FORCE = 4000.0f;

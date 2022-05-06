@@ -43,6 +43,11 @@ void Rock::Update(float frameTime)
 	collisionShape.PlaceAt(position.YValue + HEIGHT, position.XValue - WIDTH / 2, position.YValue - HEIGHT, position.XValue + WIDTH / 2);
 }
 
+void Rock::Render()
+{
+
+}
+
 IShape2D& Rock::GetShape()
 {
 	return collisionShape;

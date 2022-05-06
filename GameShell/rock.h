@@ -24,6 +24,8 @@ public:
 	void Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
 
+	void Render();
+
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObject);
 };
