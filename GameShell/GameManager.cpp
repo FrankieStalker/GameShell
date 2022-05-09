@@ -1,4 +1,3 @@
-
 #include <fstream>
 
 #include "gamecode.h"
@@ -232,16 +231,15 @@ void GameManager::StartLevel(int level)
 			theObjectManager.AddObject(pSpikes);
 		}
 
-		if (a == 'k')
+		if (a == 'k') //If k appears in file create a key
 		{
 			Key* pKey = new Key();
 			pKey->Initialise(Vector2D(x, y), &theObjectManager, this);
 			theObjectManager.AddObject(pKey);
 		}
 	}
-
+	//Close file
 	levelName.close();
-
 }
 
 void GameManager::Render()
@@ -279,6 +277,9 @@ void GameManager::Render()
 			}
 		}
 	}
+
+	if(playerLives > 0 && levelState == LevelState::FAILURE)
+		MyDrawEngine::GetInstance()->WriteText(560, 100, L"Player died, restarting level...", MyDrawEngine::CYAN, 3);
 	
 	if (startLevelTimer < 0)
 	{
@@ -290,7 +291,7 @@ void GameManager::Render()
 	{
 		//Level 1 task
 		if (levelNum == 1)
-			MyDrawEngine::GetInstance()->WriteText(140, 100, L"Defeate all enemies, find the key, and reach the door before the \n                         timer runs out", MyDrawEngine::CYAN, 3);
+			MyDrawEngine::GetInstance()->WriteText(140, 100, L" Defeat all enemies, find the key, and reach the door before the \n                         timer runs out", MyDrawEngine::CYAN, 3);
 
 		//Level 2 & 3 task
 		if (levelNum == 2 || levelNum == 3)
@@ -309,6 +310,7 @@ void GameManager::Render()
 void GameManager::Update(float frameTime)
 {
 	startLevelTimer += frameTime;
+	deathTimer -= frameTime;
 
 	if (!pPlayerChar->IsReady() && startLevelTimer > 0)
 	{
@@ -346,9 +348,8 @@ void GameManager::Update(float frameTime)
 			}
 		}
 	}
-	else if (levelState == LevelState::FAILURE && playerLives > 0 || endLevelTimer < 0.0f && levelNum != 4)
+	else if (levelState == LevelState::FAILURE && playerLives > 0 && deathTimer < 0.0f || endLevelTimer < 0.0f && levelNum != 4)
 		StartLevel(levelNum);
-		
 
 	//If player dies
 	if (playerLives < 1)
@@ -416,6 +417,7 @@ void GameManager::ProceedLevel()
 //Sets proceed level to FAILURE to stay at the same level
 void GameManager::StayAtLevel()
 {
+	deathTimer = 3.0f;
 	levelState = LevelState::FAILURE;
 }
 

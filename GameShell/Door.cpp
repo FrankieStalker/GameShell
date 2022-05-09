@@ -19,14 +19,15 @@ void Door::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 	position = pos;
 
 	active = true;
-
+	collisionShape.PlaceAt(position.YValue + DOORHEIGHT / 2, position.XValue - DOORWIDTH / 2, position.YValue - DOORHEIGHT / 2, position.XValue + DOORWIDTH / 2);
 	loadImage(L"DoorSprite.png");
 }
 
 void Door::Update(float frameTime)
 {
+#if _DEBUG
 	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
-	collisionShape.PlaceAt(position.YValue + DOORHEIGHT / 2, position.XValue - DOORWIDTH / 2, position.YValue - DOORHEIGHT / 2, position.XValue + DOORWIDTH / 2);
+#endif
 }
 
 IShape2D& Door::GetShape()

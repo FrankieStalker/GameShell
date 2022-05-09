@@ -19,14 +19,16 @@ void BossEnemy::Initialise(Vector2D pos, Vector2D vel, ObjectManager* pOM, GameM
 	pObjectManager = pOM;
 	pGameManager = pGM;
 	active = true;
-	health = 1;
+	health = 75;
 
 	loadImage(L"BossEnemyIcon.png");
 }
 
 void BossEnemy::Update(float frameTime)
 {
+#if _DEBUG
 	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
+#endif
 	collisionShape.PlaceAt(position.YValue + BOSSSIZE / 2, position.XValue - BOSSSIZE / 2, position.YValue - BOSSSIZE / 2, position.XValue + BOSSSIZE / 2);
 	position = position + velocity * frameTime;
 }
@@ -46,6 +48,7 @@ void BossEnemy::ProcessCollision(GameObject& gameObject)
 {
 	if (typeid(gameObject) == typeid(Bullet))
 	{
+		loadSound(L"Retro-8-bit-damage-571.wav");
 		health = health - 1;
 		if (health <= 0)
 		{

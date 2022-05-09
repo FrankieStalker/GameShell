@@ -6,6 +6,7 @@
 // Promise this classs exists
 class PlayerChar;
 class BossEnemy;
+class MySoundEngine;
 
 // enum for current level state
 // SUCCESS == Proceed Level
@@ -24,6 +25,9 @@ private:
 	int number; // Variable for storing random number
 	bool keyCollected; // Variable to store if key has been colected
 	LevelState levelState; // Variable for storing the level initiliser
+	float deathTimer = 2.0f;
+
+	SoundIndex lvl1Sound;
 
 	float successTimer; // Variable for timer till next level after success
 

@@ -23,6 +23,11 @@ void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
 
 void Bullet::Update(float frameTime)
 {
+#if _DEBUG
+	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+#endif
+
+	collisionShape.PlaceAt(position, 12);
 	position = position + velocity * frameTime;
 
 	timeDelay = timeDelay - 1 * frameTime;
@@ -31,8 +36,6 @@ void Bullet::Update(float frameTime)
 	{
 		Deactivate();
 	}
-
-	collisionShape.PlaceAt(position, 12);
 }
 
 void Bullet::Shoot()

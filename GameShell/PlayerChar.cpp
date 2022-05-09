@@ -17,7 +17,7 @@
 
 PlayerChar::PlayerChar()
 {
-
+	
 }
 
 PlayerChar::~PlayerChar()
@@ -41,9 +41,6 @@ void PlayerChar::Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* p
 	//currentImg = 0.0;
 
 	loadImage(L"PlayerIcon.png");
-	//expImg[0] = loadImage(L"puff1.bmp");
-	//expImg[1] = loadImage(L"puff2.bmp");
-
 }
 
 //void playerchar::render()
@@ -74,6 +71,8 @@ void PlayerChar::Update(float frameTime)
 			MyDrawEngine::GetInstance()->WriteText(1700, 460, L"true", MyDrawEngine::GREEN);
 		if (isOnGround == false)
 			MyDrawEngine::GetInstance()->WriteText(1700, 460, L"false", MyDrawEngine::GREEN);
+
+		MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
 #endif
 
 	//----------------------------------------------------------------------------------------//
@@ -90,8 +89,6 @@ void PlayerChar::Update(float frameTime)
 		cameraHeight = position.YValue + 500.0f;*/
 
 	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -position.YValue));
-	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
-
 	collisionShape.PlaceAt(position, 32);//Initial collision to aid when loading levels
 
 	if (!ready) return;
@@ -129,6 +126,7 @@ void PlayerChar::Update(float frameTime)
 	{
 		velocity.YValue = JUMP_FORCE;
 		isOnGround = false;
+		loadSound(L"Arcade-8-bit-jump-813.wav");
 	}
 
 	if (pInputs->KeyPressed(DIK_E) && pGameManager->GetLevelState() != LevelState::SUCCESS)//Key press E -> shoot
@@ -289,17 +287,10 @@ void PlayerChar::ProcessCollision(GameObject& gameObject)
 		}
 	}
 
-	//If player collides with spikes player dies
-	if (typeid(gameObject) == typeid(Spikes))
+	//If player collides with enemy or spikes player dies
+	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy) || typeid(gameObject) == typeid(BossEnemy) || typeid(gameObject) == typeid(Spikes))
 	{
-		Deactivate();
-		pGameManager->PlayerDead();
-		pGameManager->StayAtLevel();
-	}
-
-	//If player collides with enemy player dies
-	if (typeid(gameObject) == typeid(Enemy) || typeid(gameObject) == typeid(FlyingEnemy) || typeid(gameObject) == typeid(BossEnemy))
-	{
+		loadSound(L"Arcade-8-bit-death-289.wav");
 		Deactivate();
 		pGameManager->PlayerDead();
 		pGameManager->StayAtLevel();

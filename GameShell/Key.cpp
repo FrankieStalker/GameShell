@@ -18,6 +18,7 @@ void Key::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 	pGameManager = pGM;
 	position = pos;
 
+	collisionShape.PlaceAt(position, 24);
 	active = true;
 
 	loadImage(L"KeyIcon.png");
@@ -25,8 +26,9 @@ void Key::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 
 void Key::Update(float frameTime)
 {
-	//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
-	collisionShape.PlaceAt(position, 24);
+#if _DEBUG
+	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+#endif
 }
 
 IShape2D& Key::GetShape()
@@ -39,6 +41,7 @@ void Key::ProcessCollision(GameObject& gameObject)
 {
 	if (typeid(gameObject) == typeid(PlayerChar))
 	{
+		loadSound(L"Game-coin-collect-620.wav");
 		Deactivate();
 		pGameManager->KeyIsCollected();
 	}

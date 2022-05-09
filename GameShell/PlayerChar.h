@@ -24,6 +24,8 @@ private:
 	bool isOnGround;
 	const float JUMP_FORCE = 4000.0f;
 
+	float deathTimer;
+
 	bool ready;
 
 	//float frictionPower = -0.5f; //Variable to reduce speed

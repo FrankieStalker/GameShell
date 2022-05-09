@@ -209,12 +209,19 @@ ErrorType Game::PauseMenu()
 // which is currently a basic placeholder
 ErrorType Game::MainMenu()
 {
-	//Loading same font in different sizes
-	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 400, false, false);
-	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 30, false, false);
-	MyDrawEngine::GetInstance()->AddFont(L"OCR-A", 60, false, false);
+	//Loading main menu music
+	MySoundEngine* pSound = MySoundEngine::GetInstance();
+	SoundIndex intro = pSound->LoadWav(L"MenuMusic.wav");
+	pSound->SetVolume(intro, -3000);
+	pSound->Play(intro, true);
 
-	MyDrawEngine::GetInstance()->WriteText(200, 300, L"Ball Hero", MyDrawEngine::CYAN, 1);
+	//Loading same font in different sizes
+	MyDrawEngine* pDraw = MyDrawEngine::GetInstance();
+	pDraw->AddFont(L"OCR-A", 400, false, false);
+	pDraw->AddFont(L"OCR-A", 30, false, false);
+	pDraw->AddFont(L"OCR-A", 60, false, false);
+
+	pDraw->WriteText(200, 300, L"Ball Hero", MyDrawEngine::CYAN, 1);
 
 	const int NUMOPTIONS = 2;
 	wchar_t options[NUMOPTIONS][15] = { L"Start game", L"Exit" };
@@ -227,7 +234,7 @@ ErrorType Game::MainMenu()
 		{
 			colour = MyDrawEngine::CYAN;
 		}
-		MyDrawEngine::GetInstance()->WriteText(200, 800 + 50 * i, options[i], colour, 2);
+		pDraw->WriteText(200, 800 + 50 * i, options[i], colour, 2);
 	}
 
 	// Get keyboard input
@@ -287,7 +294,7 @@ ErrorType Game::StartOfGame()
 	endOfGame = false; //Sets end of game to false
 
 	theGameManager.SetPlayerLives();
-	theGameManager.StartLevel(3);
+	theGameManager.StartLevel(1);
 
 	gt.mark();
 	gt.mark();
@@ -335,7 +342,7 @@ ErrorType Game::Update()
 	gt.mark();
 	
 #if _DEBUG
-		MyDrawEngine::GetInstance()->WriteDouble(10, 10, gt.mdFrameTime, MyDrawEngine::GREEN);
+		MyDrawEngine::GetInstance()->WriteDouble(10, 10, int(1.0f / gt.mdFrameTime), MyDrawEngine::GREEN);
 #endif
 	// *********************************************************************
 	// *********************************************************************

@@ -74,6 +74,7 @@ void FlyingEnemy::ProcessCollision(GameObject& gameObject)
 	}
 	if (typeid(gameObject) == typeid(Bullet))
 	{
+		loadSound(L"Retro-8-bit-damage-571.wav");
 		Deactivate();
 		pGameManager->EnemyDead();
 	}

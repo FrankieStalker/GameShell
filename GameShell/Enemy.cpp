@@ -28,6 +28,10 @@ void Enemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager*
 
 void Enemy::Update(float frameTime)
 {
+#if _DEBUG
+	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
+#endif
+
 	Vector2D beneathMe;
 	if (direction == true)
 		beneathMe = position - Vector2D(-10, 75);
@@ -40,7 +44,6 @@ void Enemy::Update(float frameTime)
 		velocity = -velocity;
 	}
 
-	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 	collisionShape.PlaceAt(position.YValue + 64 / 2, position.XValue - 64 / 2, position.YValue - 64 / 2, position.XValue + 64 / 2);
 	position = position + velocity * frameTime;
 }
@@ -70,6 +73,7 @@ void Enemy::ProcessCollision(GameObject& gameObject)
 	}
 	if (typeid(gameObject) == typeid(Bullet))
 	{
+		loadSound(L"Retro-8-bit-damage-571.wav");
 		Deactivate();
 		pGameManager->EnemyDead();
 	}
