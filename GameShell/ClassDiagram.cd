@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BossEnemy">
+    <Position X="8.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAAAAAAAQAAAAAAAAAAEAEgAAAABAAAACAAAAg=</HashCode>
+      <FileName>BossEnemey.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet">
+    <Position X="1.75" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="10.75" Y="5.901" />
+        <Point X="10.75" Y="6.101" />
+        <Point X="5.958" Y="6.101" Type="JumpStart" />
+        <Point X="5.792" Y="6.101" Type="JumpEnd" />
+        <Point X="2.5" Y="6.101" />
+        <Point X="2.5" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAAAARQAAAAAAAAAAAAEAAAAEBAQAAAAQAAg=</HashCode>
+      <FileName>bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Door">
+    <Position X="17.5" Y="10.25" Width="1.5" />
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" ManuallyRouted="true">
+      <Path>
+        <Point X="17.906" Y="10.25" />
+        <Point X="17.906" Y="7.136" />
+        <Point X="18.656" Y="7.136" />
+        <Point X="18.656" Y="0.812" />
+        <Point X="17.708" Y="0.812" Type="JumpStart" />
+        <Point X="17.542" Y="0.812" Type="JumpEnd" />
+        <Point X="17.25" Y="0.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAACAAIAIAIQAAAAAAAAAAAAEAAAAEFAAAAAAAAAg=</HashCode>
+      <FileName>Door.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Enemy">
+    <Position X="9.75" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="10.75" Y="5.901" />
+        <Point X="10.75" Y="6.299" />
+        <Point X="10.5" Y="6.299" />
+        <Point X="10.5" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="pTerrain" Type="Terrain" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.5" Y="10.25" />
+        <Point X="10.5" Y="10" />
+        <Point X="10.255" Y="10" Type="JumpStart" />
+        <Point X="10.089" Y="10" Type="JumpEnd" />
+        <Point X="9.927" Y="10" Type="JumpStart" />
+        <Point X="9.76" Y="10" Type="JumpEnd" />
+        <Point X="7.49" Y="10" Type="JumpStart" />
+        <Point X="7.323" Y="10" Type="JumpEnd" />
+        <Point X="7.083" Y="10" Type="JumpStart" />
+        <Point X="6.917" Y="10" Type="JumpEnd" />
+        <Point X="6.677" Y="10" Type="JumpStart" />
+        <Point X="6.51" Y="10" Type="JumpEnd" />
+        <Point X="5.875" Y="10" />
+        <Point X="5.875" Y="11.359" />
+        <Point X="5.5" Y="11.359" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.172" Y="10.25" />
+        <Point X="10.172" Y="9.812" />
+        <Point X="10.417" Y="9.812" Type="JumpStart" />
+        <Point X="10.583" Y="9.812" Type="JumpEnd" />
+        <Point X="14.073" Y="9.812" Type="JumpStart" />
+        <Point X="14.24" Y="9.812" Type="JumpEnd" />
+        <Point X="14.698" Y="9.812" Type="JumpStart" />
+        <Point X="14.865" Y="9.812" Type="JumpEnd" />
+        <Point X="15.385" Y="9.812" Type="JumpStart" />
+        <Point X="15.552" Y="9.812" Type="JumpEnd" />
+        <Point X="16.323" Y="9.812" Type="JumpStart" />
+        <Point X="16.49" Y="9.812" Type="JumpEnd" />
+        <Point X="17.625" Y="9.812" />
+        <Point X="17.625" Y="2.625" />
+        <Point X="17.25" Y="2.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgQAAgAAIgAAIQAAAAAAAAAAAAEAAAQEBAQAAAAAAAg=</HashCode>
+      <FileName>Enemy.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pTerrain" />
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAABAAAAAEIgAIAQAEAUNAAAABBBAIAJCAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlyingEnemy">
+    <Position X="10.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAEAAEAAAAABAAAAAAABAA=</HashCode>
+      <FileName>FlyingEnemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Terrain">
+    <Position X="4" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="10.75" Y="5.901" />
+        <Point X="10.75" Y="6.141" />
+        <Point X="5.958" Y="6.141" Type="JumpStart" />
+        <Point X="5.792" Y="6.141" Type="JumpEnd" />
+        <Point X="4.75" Y="6.141" />
+        <Point X="4.75" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.344" Y="10.25" />
+        <Point X="4.344" Y="9.812" />
+        <Point X="4.667" Y="9.812" Type="JumpStart" />
+        <Point X="4.833" Y="9.812" Type="JumpEnd" />
+        <Point X="5.073" Y="9.812" Type="JumpStart" />
+        <Point X="5.24" Y="9.812" Type="JumpEnd" />
+        <Point X="5.792" Y="9.812" Type="JumpStart" />
+        <Point X="5.958" Y="9.812" Type="JumpEnd" />
+        <Point X="6.917" Y="9.812" Type="JumpStart" />
+        <Point X="7.083" Y="9.812" Type="JumpEnd" />
+        <Point X="7.323" Y="9.812" Type="JumpStart" />
+        <Point X="7.49" Y="9.812" Type="JumpEnd" />
+        <Point X="9.76" Y="9.812" Type="JumpStart" />
+        <Point X="9.927" Y="9.812" Type="JumpEnd" />
+        <Point X="10.417" Y="9.812" Type="JumpStart" />
+        <Point X="10.583" Y="9.812" Type="JumpEnd" />
+        <Point X="14.073" Y="9.812" Type="JumpStart" />
+        <Point X="14.24" Y="9.812" Type="JumpEnd" />
+        <Point X="14.698" Y="9.812" Type="JumpStart" />
+        <Point X="14.865" Y="9.812" Type="JumpEnd" />
+        <Point X="15.385" Y="9.812" Type="JumpStart" />
+        <Point X="15.552" Y="9.812" Type="JumpEnd" />
+        <Point X="16.323" Y="9.812" Type="JumpStart" />
+        <Point X="16.49" Y="9.812" Type="JumpEnd" />
+        <Point X="17.625" Y="9.812" />
+        <Point X="17.625" Y="2.062" />
+        <Point X="17.25" Y="2.062" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIAAAAQAAAAAAAQAAAAEAAACEBEBAAAAAAAg=</HashCode>
+      <FileName>Terrain.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VerticalTerrain">
+    <Position X="4" Y="14.25" Width="1.5" />
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="16.033" />
+        <Point X="5.875" Y="16.033" />
+        <Point X="5.875" Y="0.125" />
+        <Point X="17.625" Y="0.125" />
+        <Point X="17.625" Y="3.188" />
+        <Point X="17.25" Y="3.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAMAAAAQAAAAAACQABBAEAAAAEBAAAAAAAAAg=</HashCode>
+      <FileName>VerticalTerrain.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Rock">
+    <Position X="6.25" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="10.75" Y="5.901" />
+        <Point X="10.75" Y="6.188" />
+        <Point X="7" Y="6.188" />
+        <Point X="7" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIAAAQQAAAEAAADAAAAEAAAAEBBAAAAAAAAg=</HashCode>
+      <FileName>rock.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerChar">
+    <Position X="15.25" Y="10.25" Width="1.5" />
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.406" Y="10.25" />
+        <Point X="16.406" Y="8.072" />
+        <Point X="16.542" Y="8.072" Type="JumpStart" />
+        <Point X="16.708" Y="8.072" Type="JumpEnd" />
+        <Point X="17.622" Y="8.072" />
+        <Point X="17.622" Y="1.188" />
+        <Point X="17.25" Y="1.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>GIQAAEAAIQAgAQAEAAABAAAAAAMAAAQkDCQAIAAADAg=</HashCode>
+      <FileName>PlayerChar.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Key">
+    <Position X="19.75" Y="10.25" Width="1.5" />
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.906" Y="10.25" />
+        <Point X="20.906" Y="0.125" />
+        <Point X="16.688" Y="0.125" />
+        <Point X="16.688" Y="0.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAABIAAAAQQAAAAAAAAAAAEAAAAEBAAAAAAAAAg=</HashCode>
+      <FileName>Key.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ObjectManager">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAIAABAAAAAAAIABACAgAAAIAAAAIAAAAA=</HashCode>
+      <FileName>objectmanager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQAIAAAAGAQAAACgAAAAUAYAIEAAAAWTSAAExZACA=</HashCode>
+      <FileName>GameManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spikes">
+    <Position X="13" Y="10.25" Width="1.5" />
+    <AssociationLine Name="pGameManager" Type="GameManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.156" Y="10.25" />
+        <Point X="14.156" Y="8.074" />
+        <Point X="14.698" Y="8.074" Type="JumpStart" />
+        <Point X="14.865" Y="8.074" Type="JumpEnd" />
+        <Point X="15.25" Y="8.074" />
+        <Point X="15.25" Y="7.062" />
+        <Point X="15" Y="7.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="pObjectManager" Type="ObjectManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.852" Y="10.25" />
+        <Point X="13.852" Y="9.812" />
+        <Point X="14.073" Y="9.812" Type="JumpStart" />
+        <Point X="14.24" Y="9.812" Type="JumpEnd" />
+        <Point X="14.698" Y="9.812" Type="JumpStart" />
+        <Point X="14.865" Y="9.812" Type="JumpEnd" />
+        <Point X="15.385" Y="9.812" Type="JumpStart" />
+        <Point X="15.552" Y="9.812" Type="JumpEnd" />
+        <Point X="16.323" Y="9.812" Type="JumpStart" />
+        <Point X="16.49" Y="9.812" Type="JumpEnd" />
+        <Point X="17.625" Y="9.812" />
+        <Point X="17.625" Y="1.625" />
+        <Point X="17.25" Y="1.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQEAAAgIAAAAQAAAAAAAQAAAAEAAAAEBABAAAAAAAg=</HashCode>
+      <FileName>Spikes.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pGameManager" />
+      <Field Name="pObjectManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="LevelState">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
