@@ -4,6 +4,12 @@
 // Last modified 25/09/2018
 //   Update to prevent game loop from flipping twice
 
+//Modified by w18010435
+//Created a variable to set frame time
+//Created a bool for the end of the game
+//Created a GameManager object
+//Created a function to change end of game variable to true
+
 
 #pragma once
 #include "errortype.h"
@@ -30,6 +36,14 @@ class Game
 {
 private:
 	
+	enum GameState { MENU, PAUSED, RUNNING, GAMEOVER };
+	GameState m_currentState;     // Current state of the game 
+								  // Menu = start menu
+								  // Paused = paused
+								  // Running = the main game loop
+								  // GAMEOVER = setting this state causes the program to close after tidying up
+	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
+
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
 	Game(Game& other);             // Copy constructor disabled
 
@@ -43,15 +57,6 @@ private:
 public:
 	Game();                        // Constructor
 	~Game();                       // Destructor
-
-	enum GameState { MENU, PAUSED, RUNNING, GAMEOVER };
-	GameState m_currentState;      // Current state of the game 
-								  // Menu = start menu
-								  // Paused = paused
-								  // Running = the main game loop
-								  // GAMEOVER = setting this state causes the program to close
-								  //            after tidying up
-	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
 
 	static Game instance;          // Singleton instance
 

@@ -1,3 +1,8 @@
+//Created by w18010435
+//Contains all the declarations for BossEnemy class
+//The boss enemy is the big bad guy the player has to face at the end of the game
+
+
 #include "BossEnemey.h"
 #include "bullet.h"
 
@@ -27,7 +32,7 @@ void BossEnemy::Initialise(Vector2D pos, Vector2D vel, ObjectManager* pOM, GameM
 void BossEnemy::Update(float frameTime)
 {
 #if _DEBUG
-	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
+	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 #endif
 	collisionShape.PlaceAt(position.YValue + BOSSSIZE / 2, position.XValue - BOSSSIZE / 2, position.YValue - BOSSSIZE / 2, position.XValue + BOSSSIZE / 2);
 	position = position + velocity * frameTime;

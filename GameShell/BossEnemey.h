@@ -1,14 +1,13 @@
+//Created by w18010435
+//Boss enemy class used to store all the function declarations and variables for BossEnemy class
+
 #pragma once
 #include "Enemy.h"
-
-//Promise that this class exists
-class ObjectManager;
-class GameManager;
 
 class BossEnemy : public Enemy
 {
 private: 
-	int health;
+	int health; //Variable for storing boss health
 public:
 	BossEnemy();
 	~BossEnemy();
@@ -21,6 +20,6 @@ public:
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObject);
 
-	static const int BOSSSIZE = 2050;
+	static const int BOSSSIZE = 2050; //Variable for stroing boss size
 };
 

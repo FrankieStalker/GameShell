@@ -1,3 +1,7 @@
+//Created by w18010435
+//Create a death floor at the bottom of the world
+//Helps keep player in world space
+
 #include "Spikes.h"
 
 #include "objectmanager.h"

@@ -1,7 +1,10 @@
+//Created by w18010435
+//Terrain class used to store all the function declarations and variables for Terrain class
+
 #pragma once
 #include "GameObject.h"
 
-//Promise that this class exists
+//Forward declartion
 class ObjectManager;
 class GameManager;
 
@@ -10,9 +13,10 @@ class Terrain : public GameObject
 private:
 	Rectangle2D collisionShape;
 
-	ObjectManager* pObjectManager;
+protected:
+	ObjectManager* pObjectManager = nullptr;
 
-	GameManager* pGameManager;
+	GameManager* pGameManager = nullptr;
 
 public:
 	Terrain();
@@ -20,8 +24,6 @@ public:
 
 	void Initialise(Vector2D pos, float platSize, ObjectManager* pOM, GameManager* pGM);
 	void Update(float frameTime) override;
-
-	int GetEdge(Vector2D other);
 
 	Vector2D GetCollsionNormal(Circle2D other);
 

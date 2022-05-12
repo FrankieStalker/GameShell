@@ -1,3 +1,7 @@
+//Created by w18010435
+//Class for the platfrom game object
+//Space for player to walk on
+
 #include "Terrain.h"
 #include "BossEnemey.h"
 

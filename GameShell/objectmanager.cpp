@@ -1,5 +1,7 @@
+//Created by w18010435
+//Class for managing all the fucntionality for objects such as Update, Render, Collision and Delete
+
 #include "objectmanager.h"
-#include <iostream>
 
 ObjectManager::ObjectManager()
 {

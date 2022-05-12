@@ -1,3 +1,7 @@
+//Created by w18010435
+//Class for the vertical platfrom game object
+//Create a wall for player, helps with tunnels
+
 #include "VerticalTerrain.h"
 #include "BossEnemey.h"
 

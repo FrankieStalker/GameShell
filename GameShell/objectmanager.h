@@ -1,11 +1,9 @@
+//Created by w18010435
+//All declarions for ObjectManager class
+
 #pragma once
 #include <list>
 #include "GameObject.h"
-
-////Promise that classes exist
-//class Spaceship;
-//class Rock;
-//class GameObject;
 
 class ObjectManager
 {

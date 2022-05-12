@@ -1,7 +1,10 @@
+//Created by w18010435
+//Rock (Flying Enemy bound box) class used to store all the function declarations and variables for Rock class
+
 #pragma once
 #include "GameObject.h"
 
-//Promise that this class exists
+//Forward declartion
 class ObjectManager;
 class GameManager;
 
@@ -10,12 +13,9 @@ class Rock : public GameObject
 private:
 	Rectangle2D collisionShape;
 
-	int number = rand() % 4;
-	const wchar_t imgArray[4][25] = { L"rock1.bmp", L"rock2.bmp", L"rock3.bmp", L"rock4.bmp" };
+	ObjectManager* pObjectManager = nullptr;
 
-	ObjectManager* pObjectManager;
-
-	GameManager* pGameManager;
+	GameManager* pGameManager = nullptr;
 
 public:
 	Rock();

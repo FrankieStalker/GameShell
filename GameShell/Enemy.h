@@ -1,15 +1,18 @@
+//Created by w18010435
+//Enemy class used to store all the function declarations and variables for Enemy class
+
 #pragma once
 #include "GameObject.h"
 #include "Terrain.h"
 
-//Promise that this class exists
+//Forward declartion
 class ObjectManager;
 class GameManager;
 
 class Enemy : public GameObject
 {
 private:
-	Terrain* pTerrain;
+	Terrain* pTerrain = nullptr; //Pointer to terrain 
 protected:
 	Vector2D velocity;
 	Vector2D acceleration;
@@ -18,9 +21,9 @@ protected:
 
 	bool direction;
 
-	ObjectManager* pObjectManager;
+	ObjectManager* pObjectManager = nullptr;
 
-	GameManager* pGameManager;
+	GameManager* pGameManager = nullptr;
 
 public:
 	Enemy();

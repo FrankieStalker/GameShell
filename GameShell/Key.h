@@ -1,7 +1,10 @@
+//Created by w18010435
+//All function decleartions for Key class
+
 #pragma once
 #include "GameObject.h"
 
-//Promise that this class exists
+//Forward declartion
 class ObjectManager;
 class GameManager;
 
@@ -10,9 +13,9 @@ class Key : public GameObject
 private:
 	Circle2D collisionShape;
 
-	ObjectManager* pObjectManager;
+	ObjectManager* pObjectManager = nullptr;
 
-	GameManager* pGameManager;
+	GameManager* pGameManager = nullptr;
 
 public:
 	Key();

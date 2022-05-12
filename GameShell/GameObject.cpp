@@ -1,3 +1,7 @@
+//Created by w18010435
+//Functions definitions for all Superclass fucntions
+//Class where all game objects get their core functionality from
+
 #include "GameObject.h"
 
 GameObject::GameObject()
@@ -23,19 +27,6 @@ void GameObject::loadSound(const wchar_t filename[])
 	sound = pSE->LoadWav(filename);
 	pSE->Play(sound);
 
-}
-
-void GameObject::ScreenWrap()
-{
-	/*if (position.XValue > 1800.0f || position.XValue < -1800.0f)
-	{
-		position.XValue *= -1;
-	}*/
-
-	/*if (position.YValue > 1000.0f || position.YValue < -1000.f)
-	{
-		position.YValue *= -1;
-	}*/
 }
 
 int GameObject::GetEdge(Vector2D other)

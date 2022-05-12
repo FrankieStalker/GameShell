@@ -1,9 +1,13 @@
+//Created by w18010435
+//Game manager class used to store all the function declarations and variables for GameManager class
+//Enum class for LevelState to keep track of level state
+
 #pragma once
 #include <list>
 #include "objectmanager.h"
 #include "Terrain.h"
 
-// Promise this classs exists
+//Forward declartion
 class PlayerChar;
 class BossEnemy;
 class MySoundEngine;
@@ -27,13 +31,11 @@ private:
 	LevelState levelState; // Variable for storing the level initiliser
 	float deathTimer = 2.0f;
 
-	SoundIndex lvl1Sound;
-
 	float successTimer; // Variable for timer till next level after success
 
 	std::list<Terrain*> pTerrainList; //List of terrians for enemy checks
-	PlayerChar* pPlayerChar; //Pointer to the player character
-	BossEnemy* pBossEnemy; //Pointer to the boss enemy
+	PlayerChar* pPlayerChar = nullptr; //Pointer to the player character
+	BossEnemy* pBossEnemy = nullptr; //Pointer to the boss enemy
 
 public:
 	GameManager();
@@ -70,7 +72,5 @@ public:
 
 	//Function to set the lives of the player when game is started
 	void SetPlayerLives();
-
-	D3DCOLOR BackgroundColour(D3DCOLOR colour);
 };
 

@@ -1,12 +1,13 @@
+//Created by w18010435
+//Bullet class used to store all the function declarations and variables for Bullet class
+
 #pragma once
 #include "GameObject.h"
-#include "mysoundengine.h" // Includes sound engine
 
 class Bullet : public GameObject
 {
 private:
 	Vector2D velocity; //Volicty of bullet
-	SoundIndex shootSound; //Shoot sound
 
 	Circle2D collisionShape;
 
@@ -17,7 +18,8 @@ public:
 
 	void Initialise(Vector2D bulletPos, Vector2D bulletVel);
 	void Update(float frameTime);
-	void Shoot();
+
+	void Shoot(); //Function for player shoot sound
 
 	IShape2D& GetShape();
 	void ProcessCollision(GameObject& gameObject);

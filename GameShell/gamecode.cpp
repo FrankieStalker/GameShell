@@ -1,5 +1,29 @@
 ﻿// GameCode.cpp		
 
+//Modified by w18010435
+//In MainMenu()
+//		Added main menu music
+//		Added 3 different sizes for fonts
+//		Changed the colour of the text to Cyan
+// 
+//In StartOfGame()
+//		Set the random number
+//		Set end of game variable == false
+//		Call SetPlayerLives() function from GameManager
+// 
+//In Update()
+//		Call ObjectManager Update, Render, Check Collisions, and Delete Inactive Objects
+//		Call GameManager Updateand Render
+//		Check to see if end of game == true to see if game state should change
+// 
+//In EndOfGame()
+//		ObjectManager Delete all objects
+//		GameManager Clear terrain list
+// 
+//In EndTheGame()
+//		Set end of game == true
+
+
 #include "gamecode.h"
 #include "mydrawengine.h"
 #include "mysoundengine.h"
@@ -217,9 +241,9 @@ ErrorType Game::MainMenu()
 
 	//Loading same font in different sizes
 	MyDrawEngine* pDraw = MyDrawEngine::GetInstance();
-	pDraw->AddFont(L"OCR-A", 400, false, false);
-	pDraw->AddFont(L"OCR-A", 30, false, false);
-	pDraw->AddFont(L"OCR-A", 60, false, false);
+	pDraw->AddFont(L"Arial", 400, false, false);
+	pDraw->AddFont(L"Arial", 30, false, false);
+	pDraw->AddFont(L"Arial", 60, false, false);
 
 	pDraw->WriteText(200, 300, L"Ball Hero", MyDrawEngine::CYAN, 1);
 

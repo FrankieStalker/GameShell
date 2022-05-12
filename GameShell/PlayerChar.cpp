@@ -1,11 +1,18 @@
-
+//Created by w18010435
+//Contains all declarations for PlayerChar class
+//Has player controllers:
+//A = left
+//D = right
+//Hold SHIFT when moving left or right to go quicker
+//E = shoot
+//SPACE = jump
+//Collision for how player walks on surface of platforms
 
 #include "PlayerChar.h"
 #include "myinputs.h"
 #include "Terrain.h"
 #include "VerticalTerrain.h"
 #include "Spikes.h"
-#include "rock.h"
 #include "Enemy.h"
 #include "FlyingEnemy.h"
 #include "BossEnemey.h"
@@ -43,17 +50,6 @@ void PlayerChar::Initialise(Vector2D initPos, ObjectManager* pOM, GameManager* p
 	loadImage(L"PlayerIcon.png");
 }
 
-//void playerchar::render()
-//{
-//	for (int i = (int)currentimg; i < 1; i++)
-//	{
-//		if (active)
-//		{
-//			mydrawengine::getinstance()->drawat(position, expimg[i], size, angle);
-//		}
-//	}
-//}
-
 void PlayerChar::Update(float frameTime)
 {
 	//----------------------------------------------------------------------------------------//
@@ -83,12 +79,12 @@ void PlayerChar::Update(float frameTime)
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
-	/*if (position.YValue > cameraHeight + 500.0f)
-		cameraHeight = position.YValue - 500.0f;
-	if (position.YValue < cameraHeight - 500.0f)
-		cameraHeight = position.YValue + 500.0f;*/
+	if (position.YValue > cameraHeight + 300.0f)
+		cameraHeight = position.YValue - 300.0f;
+	if (position.YValue < cameraHeight - 300.0f)
+		cameraHeight = position.YValue + 300.0f;
 
-	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -position.YValue));
+	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(position.XValue, -cameraHeight));
 	collisionShape.PlaceAt(position, 32);//Initial collision to aid when loading levels
 
 	if (!ready) return;

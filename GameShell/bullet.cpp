@@ -1,3 +1,7 @@
+//Created by w18010435
+//Contains all the definitions for bullet class fucntions
+//The projectile thet the player shoots to kill/damage enemies
+
 #include "bullet.h"
 #include "Enemy.h"
 #include "FlyingEnemy.h"
@@ -24,7 +28,7 @@ void Bullet::Initialise(Vector2D bulletPos, Vector2D bulletVel)
 void Bullet::Update(float frameTime)
 {
 #if _DEBUG
-	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+	//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
 #endif
 
 	collisionShape.PlaceAt(position, 12);

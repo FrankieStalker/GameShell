@@ -1,5 +1,8 @@
+//Created by w18010435
+//All function definitions for Enemy class
+//Basic enemy type in the game that player will encounter
+
 #include "Enemy.h"
-#include "rock.h"
 #include "bullet.h"
 
 #include "GameManager.h"
@@ -29,7 +32,7 @@ void Enemy::Initialise(Vector2D pos, Vector2D vel, float newSize, ObjectManager*
 void Enemy::Update(float frameTime)
 {
 #if _DEBUG
-	MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
+	//MyDrawEngine::GetInstance()->FillRect(collisionShape, MyDrawEngine::LIGHTBLUE);
 #endif
 
 	Vector2D beneathMe;
@@ -56,21 +59,6 @@ IShape2D& Enemy::GetShape()
 
 void Enemy::ProcessCollision(GameObject& gameObject)
 {
-	if (typeid(gameObject) == typeid(Rock))
-	{
-		int edge = dynamic_cast <GameObject*>(&gameObject)->GetEdge(position); //Worked out address of game object and cast that to Terrain pointer, call get edge function taking the position of the player as a parameter
-
-		if (edge == 3) //Left
-		{
-			position.XValue = gameObject.getPos().XValue - (64 + Terrain::WIDTH) / 2;
-			velocity.XValue = -velocity.XValue;
-		}
-		if (edge == 4) //Right
-		{
-			position.XValue = gameObject.getPos().XValue + (64 + Terrain::WIDTH) / 2;
-			velocity.XValue = -velocity.XValue;
-		}
-	}
 	if (typeid(gameObject) == typeid(Bullet))
 	{
 		loadSound(L"Retro-8-bit-damage-571.wav");

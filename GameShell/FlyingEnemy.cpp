@@ -1,3 +1,7 @@
+//Created by w18010435
+//Contains all of the decleartation for FlyingEnemy class
+//Collision for how flying enemy moves
+
 #include "FlyingEnemy.h"
 #include "rock.h"
 #include "bullet.h"

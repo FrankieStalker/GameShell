@@ -1,3 +1,6 @@
+//Created by w18010435
+//Abstract super class that all game objects inherit from
+
 #pragma once
 
 #include "mydrawengine.h"
@@ -26,7 +29,6 @@ public:
 	virtual void Render(); //Render function
 	virtual void Update(float frameTime) = 0; //Abstract update fucntion
 
-	void ScreenWrap();
 	int GetEdge(Vector2D other);
 
 	virtual IShape2D& GetShape() = 0; //Abstract function for collision

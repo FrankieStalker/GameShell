@@ -22,8 +22,6 @@
 #include "string"
 #include "camera.h"
 
-class GameManager;
-
 
 // Macros ***************************************************
 // Colour system
@@ -52,7 +50,6 @@ class MyDrawEngine
 {
 
 private:
-	GameManager* pGameManager;
    // Defines the vertex format used in Direct3D
 struct MYVERTEX
 {

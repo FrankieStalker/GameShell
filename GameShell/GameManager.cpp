@@ -1,3 +1,9 @@
+//Created by w18010435
+//Contains all the declarations for GameManager class
+//Allowing level loading with file streaming
+//Changing game state depending on player success or failure
+//Overall most of the game comes through this file
+
 #include <fstream>
 
 #include "gamecode.h"
@@ -210,7 +216,7 @@ void GameManager::StartLevel(int level)
 			theObjectManager.AddObject(pBossEnemy);
 		}
 
-		if (a == 'd')
+		if (a == 'd') //If d appears in the file create the boss enemy
 		{
 			Door* pDoor = new Door();
 			pDoor->Initialise(Vector2D(x, y), &theObjectManager, this);
@@ -443,10 +449,4 @@ void GameManager::SetPlayerLives()
 	if (levelNum == 3 || levelNum == 4)
 		playerLives = 5;
 }
-
-D3DCOLOR GameManager::BackgroundColour(D3DCOLOR colour)
-{
-	return colour;
-}
-
 

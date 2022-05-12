@@ -10,7 +10,6 @@
 
 
 #include "mydrawengine.h"
-#include "GameManager.h"
 #include <algorithm>			// Using find() in DeregisterPicture
 
 MyDrawEngine* MyDrawEngine::instance=nullptr;
@@ -523,7 +522,7 @@ ErrorType MyDrawEngine::ReloadPicture(PictureIndex pic)
 ErrorType MyDrawEngine::ClearBackBuffer()
 {
 	//Clear
-	HRESULT err = m_lpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, pGameManager->BackgroundColour(BLACK),1.0f,0);
+	HRESULT err = m_lpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, BLACK,1.0f,0);
 
 	if(FAILED(err))
 	{
@@ -913,7 +912,7 @@ ErrorType MyDrawEngine::DrawAt(Vector2D position, PictureIndex pic, float scale,
 	if(picit==m_MyPictureList.end())
 	{
 		ErrorLogger::Writeln(L"Attempting to draw an invalid PictureIndex in DrawAt.");
-		//WriteText(originalPosition, L"No Image", WHITE); //Commented out to help with immersion
+		WriteText(originalPosition, L"No Image", WHITE); //Commented out to help with immersion
 		return FAILURE;	
 	}
 	

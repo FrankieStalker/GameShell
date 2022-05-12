@@ -1,3 +1,7 @@
+//Created by w18010435
+//Function definitions for Key class
+//The key for the game which is used to unlock the door
+
 #include "Key.h"
 #include "PlayerChar.h"
 
@@ -27,7 +31,7 @@ void Key::Initialise(Vector2D pos, ObjectManager* pOM, GameManager* pGM)
 void Key::Update(float frameTime)
 {
 #if _DEBUG
-	MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+	//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
 #endif
 }
 

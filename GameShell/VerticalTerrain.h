@@ -1,18 +1,14 @@
+//Created by w18010435
+//Vertical Terrain class used to store all the function declarations and variables for Vertical Terrain class
+
 #pragma once
 #include "Terrain.h"
-
-//Promise that this class exists
-class ObjectManager;
-class GameManager;
 
 class VerticalTerrain : public Terrain
 {
 private:
 	Rectangle2D collisionShape;
 
-	ObjectManager* pObjectManager;
-
-	GameManager* pGameManager;
 public:
 	VerticalTerrain();
 	~VerticalTerrain();
