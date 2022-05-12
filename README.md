@@ -7,8 +7,7 @@ CONTROLS:
 - D = Right
 - E = Shoot
 - SPACE = Jump
-
-**Note** Hold SHIFT when moving to run **Note**
+- SHIFT when moving to run
 
 **Files I created**
 
