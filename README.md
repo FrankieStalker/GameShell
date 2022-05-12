@@ -45,3 +45,10 @@ CONTROLS:
 - Spikes.cpp
 - Terrain.cpp
 - VerticalTerrain.cpp
+
+***Sounds From***
+- Main Menu music - https://www.fesliyanstudios.com/royalty-free-music/downloads-c/8-bit-music/6
+- Player Death sound - https://gfxsounds.com/sound-effect/arcade-8-bit-death/
+- Player Jump sound - https://gfxsounds.com/sound-effect/arcade-8-bit-jump/
+- Key Collected sound - https://gfxsounds.com/sound-effect/game-coin-collect/
+- Enemy Damage sound - https://gfxsounds.com/sound-effect/retro-8-bit-damage/
