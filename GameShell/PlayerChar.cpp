@@ -68,7 +68,7 @@ void PlayerChar::Update(float frameTime)
 		if (isOnGround == false)
 			MyDrawEngine::GetInstance()->WriteText(1700, 460, L"false", MyDrawEngine::GREEN);
 
-		MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
+		//MyDrawEngine::GetInstance()->FillCircle(collisionShape.GetCentre(), collisionShape.GetRadius(), MyDrawEngine::LIGHTBLUE);
 #endif
 
 	//----------------------------------------------------------------------------------------//

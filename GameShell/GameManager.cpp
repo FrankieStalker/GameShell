@@ -21,7 +21,7 @@
 
 GameManager::GameManager()
 {
-	playerLives = 3; //Initilise player lives
+	playerLives = 1; //Initilise player lives
 }
 
 GameManager::~GameManager(){}
@@ -187,7 +187,7 @@ void GameManager::StartLevel(int level)
 		if (a == 'f') //If f appears in the file create a flying enemy
 		{
 			FlyingEnemy* pFlyingEnemy = new FlyingEnemy();
-			Vector2D vel(rand() % -500 + 500, 0);
+			Vector2D vel(rand() % -500 + 500.0f, 0.0f);
 			pFlyingEnemy->Initialise(Vector2D(x, y), vel, 0.5f, 1.55f, &theObjectManager, this);
 			theObjectManager.AddObject(pFlyingEnemy);
 		}
@@ -195,7 +195,7 @@ void GameManager::StartLevel(int level)
 		if (a == 'y') //If y appears in the file create a vertical flying enemy
 		{
 			FlyingEnemy* pFlyingEnemy = new FlyingEnemy();
-			Vector2D vel(0, rand() % -500 + 500);
+			Vector2D vel(0.0f, rand() % -500 + 500.0f);
 			pFlyingEnemy->Initialise(Vector2D(x, y), vel, 0.5f, 0.0f, &theObjectManager, this);
 			theObjectManager.AddObject(pFlyingEnemy);
 		}
@@ -203,7 +203,7 @@ void GameManager::StartLevel(int level)
 		if (a == 'e') //If e appears in the file create an enemy
 		{
 			Enemy* pEnemy = new Enemy();
-			Vector2D vel(rand() % -500 + 500, 0);
+			Vector2D vel(rand() % -500 + 500.0f, 0.0f);
 			pEnemy->Initialise(Vector2D(x, y), vel, 0.5f, &theObjectManager, this);
 			theObjectManager.AddObject(pEnemy);
 		}
@@ -285,7 +285,7 @@ void GameManager::Render()
 	}
 
 	if(playerLives > 0 && levelState == LevelState::FAILURE)
-		MyDrawEngine::GetInstance()->WriteText(560, 100, L"Player died, restarting level...", MyDrawEngine::CYAN, 3);
+		MyDrawEngine::GetInstance()->WriteText(650, 100, L"Player died, restarting level...", MyDrawEngine::CYAN, 3);
 	
 	if (startLevelTimer < 0)
 	{
@@ -297,16 +297,16 @@ void GameManager::Render()
 	{
 		//Level 1 task
 		if (levelNum == 1)
-			MyDrawEngine::GetInstance()->WriteText(140, 100, L" Defeat all enemies, find the key, and reach the door before the \n                         timer runs out", MyDrawEngine::CYAN, 3);
+			MyDrawEngine::GetInstance()->WriteText(250, 100, L" Defeat all enemies, find the key, and reach the door before the \n                                        timer runs out", MyDrawEngine::CYAN, 3);
 
 		//Level 2 & 3 task
 		if (levelNum == 2 || levelNum == 3)
-			MyDrawEngine::GetInstance()->WriteText(230, 100, L"Find the key and reach the door before the timer runs out", MyDrawEngine::CYAN, 3);
+			MyDrawEngine::GetInstance()->WriteText(270, 150, L"Find the key and reach the door before the timer runs out", MyDrawEngine::CYAN, 3);
 
 		//Level 4 task
 		if (levelNum == 4)
 		{
-			MyDrawEngine::GetInstance()->WriteText(500, 100, L"OVERLORD INCOMMING, FIGHT TO SURVIVE", MyDrawEngine::CYAN, 3);
+			MyDrawEngine::GetInstance()->WriteText(430, 100, L"OVERLORD INCOMMING, FIGHT TO SURVIVE", MyDrawEngine::CYAN, 3);
 			MyDrawEngine::GetInstance()->WriteText(50, 350, L"Boss Health", MyDrawEngine::CYAN, 2);
 			MyDrawEngine::GetInstance()->WriteInt(50, 380, pBossEnemy->GetHealth(), MyDrawEngine::CYAN, 2);
 		}
@@ -363,7 +363,7 @@ void GameManager::Update(float frameTime)
 		theObjectManager.DeleteAllObjects();
 		levelState = LevelState::FAILURE;
 		successTimer = successTimer - frameTime;
-		MyDrawEngine::GetInstance()->WriteText(250, 600, L"Player ran out of lives, Game Over, returning to main menu", MyDrawEngine::CYAN, 3);
+		MyDrawEngine::GetInstance()->WriteText(300, 600, L"Player ran out of lives, Game Over, returning to main menu", MyDrawEngine::CYAN, 3);
 		if (successTimer <= 0)
 		{
 			Game::instance.EndTheGame();

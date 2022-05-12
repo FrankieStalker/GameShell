@@ -173,7 +173,7 @@ ErrorType Game::PauseMenu()
 {
 	// Code for a basic pause menu
 
-	MyDrawEngine::GetInstance()->WriteText(450, 300, L"Paused", MyDrawEngine::CYAN, 1);
+	MyDrawEngine::GetInstance()->WriteText(400, 300, L"Paused", MyDrawEngine::CYAN, 1);
 
 	const int NUMOPTIONS = 2;
 	wchar_t options[NUMOPTIONS][11] = { L"Resume", L"Main menu" };
@@ -318,7 +318,7 @@ ErrorType Game::StartOfGame()
 	endOfGame = false; //Sets end of game to false
 
 	theGameManager.SetPlayerLives();
-	theGameManager.StartLevel(1);
+	theGameManager.StartLevel(4);
 
 	gt.mark();
 	gt.mark();
