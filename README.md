@@ -3,14 +3,12 @@
 Game engine code for university module
 
 CONTROLS:
-A = Left
-D = Right
-E = Shoot
-SPACE = Jump
+- A = Left
+- D = Right
+- E = Shoot
+- SPACE = Jump
 
-** Note **
-Hold SHIFT when moving to run
-** Note **
+**Note** Hold SHIFT when moving to run **Note**
 
 **Files I created**
 
